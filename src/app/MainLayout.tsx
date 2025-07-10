@@ -1,6 +1,6 @@
 "use client";
 // import { useAuth } from "@/context/AuthContext";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar";
 import type { ReactNode } from "react";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
