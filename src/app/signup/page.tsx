@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { 
   ArrowLeft,
   ArrowRight,
-  
+
   User,
   
   GraduationCap,
@@ -15,19 +15,15 @@ import {
   Save,
   Eye,
   EyeOff,
-  
   Users,
-
-  Camera,
-  
-  Shield,
-  
+Camera,
+Shield,
   Check,
   Loader2
 } from 'lucide-react'
 import Image from 'next/image'
 
-export default function AddStudentPage() {
+export default function Signup() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -198,7 +194,7 @@ export default function AddStudentPage() {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Student</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Sign Up</h1>
               <p className="text-gray-600">Create a new student account with comprehensive information</p>
             </div>
           </div>

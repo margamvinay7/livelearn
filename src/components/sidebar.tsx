@@ -1,118 +1,187 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { ForwardRefExoticComponent, RefAttributes, useState } from "react"
 import { 
   LayoutDashboard, 
   BarChart3, 
   BookOpen, 
   Calendar, 
   ChevronDown,
-  ChevronRight,
   Settings,
   LogOut,
   User,
   Bell,
   Search,
-  Home,
   GraduationCap,
   Users,
   FileText,
   Award,
-  HelpCircle,
   Plus,
   UserPlus,
   UserCheck,
-  CalendarDays
+  MessageSquare,
+  MessagesSquare,
+  IndianRupee,
+  Signature,
+  LucideProps
+  
 } from 'lucide-react'
+import Image from "next/image"
+// import { useAuth } from "@/context/AuthContext";
+
+interface Children {
+    name:string,
+    path?: string,
+    icon:ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+}
 
 export default function Sidebar(){
+    // const { user } = useAuth();
+    const user={
+        name:"hello",
+        avatar:"",
+        role:"admin"
+    }
     const pathname = usePathname()
     const [expandedItems, setExpandedItems] = useState<string[]>([])
 
+    if (!user) return null;
+    
+
+    // Role-based path prefix
+    const rolePrefix = user.role === "admin" ? "/admin" : user.role === "instructor" ? "/instructor" : "/learner";
+
+    // List with role-based paths
     const list=[
         {
             name:"Dashboard",
-            path:"/admin/dashboard",
+            path:`${rolePrefix}/dashboard`,
             icon: LayoutDashboard
         },
         {
             name:"Analytics",
-            path:"/admin/analytics",
+            path:`${rolePrefix}/analytics`,
             icon: BarChart3
         },
         {
             name:"Courses",
-            path:"/admin/courses",
+            path:`${rolePrefix}/courses`,
             icon: BookOpen,
             children: [
                 {
                     name: "All Courses",
-                    path: "/admin/courses",
+                    path: `${rolePrefix}/courses`,
                     icon: GraduationCap
                 },
                 {
                     name: "Create Course",
-                    path: "/admin/courses/create",
+                    path: user.role === "admin" ? `${rolePrefix}/courses/createcourse` : undefined,
                     icon: Plus
                 },
                 {
                     name: "Categories",
-                    path: "/admin/courses/categories",
+                    path: user.role === "admin" ? `${rolePrefix}/courses/categories` : undefined,
                     icon: FileText
                 }
-            ]
+            ].filter(child => child.path) // Remove undefined for non-admins
         },
         {
             name:"Students",
-            path:"/admin/students",
+            path: user.role === "admin" || "instructor" ? `${rolePrefix}/students` : undefined,
             icon: Users,
             children: [
                 {
                     name: "All Students",
-                    path: "/admin/students",
+                    path: `${rolePrefix}/students`,
                     icon: Users
                 },
                 {
                     name: "Add Student",
-                    path: "/admin/students/add",
+                    path: user.role === "admin" ? `${rolePrefix}/students/addstudent`:undefined,
                     icon: UserPlus
                 },
                 {
                     name: "Student Groups",
-                    path: "/admin/students/groups",
+                    path: `${rolePrefix}/students/studentgroups`,
                     icon: UserCheck
                 }
-            ]
+            ].filter(child=>child.path)
         },
+        // {
+        //     name:"Schedule",
+        //     path:`${rolePrefix}/schedule`,
+        //     icon: Calendar,
+        //     children: [
+        //         {
+        //             name: "Calendar",
+        //             path: `${rolePrefix}/schedule`,
+        //             icon: Calendar
+        //         },
+        //         {
+        //             name: "Events",
+        //             path: `${rolePrefix}/schedule/events`,
+        //             icon: CalendarDays
+        //         },
+        //         {
+        //             name: "Add Event",
+        //             path: user.role === "admin" ? `${rolePrefix}/schedule/addevent` : undefined,
+        //             icon: Plus
+        //         },
+        //     ].filter(child => child.path)
+        // },
         {
             name:"Schedule",
-            path:"/admin/schedule",
+            path:`${rolePrefix}/schedule`,
             icon: Calendar,
-            children: [
-                {
-                    name: "Calendar",
-                    path: "/admin/schedule/calendar",
-                    icon: Calendar
-                },
-                {
-                    name: "Events",
-                    path: "/admin/schedule/events",
-                    icon: CalendarDays
-                }
-            ]
         },
         {
             name:"Certificates",
-            path:"/admin/certificates",
-            icon: Award
+            path:`${rolePrefix}/certificates`,
+            icon: Award,
+            children:[
+                {
+                    name:"Certificates",
+                    path:`${rolePrefix}/certificates`,
+                    icon: Award,
+                },
+                {
+                    name:"Issue Certificate",
+                    path: user.role === "admin" ? `${rolePrefix}/certificates/issuecertificates`:undefined,
+                    icon: Signature,
+                },
+            ].filter(child=>child.path)
         },
         {
-            name:"Help & Support",
-            path:"/admin/support",
-            icon: HelpCircle
+            name:"Payments",
+            path: `${rolePrefix}/payments`,
+            icon: IndianRupee
+        },
+        {
+            name:"Chat",
+            path:"/chat",
+            icon: MessageSquare 
+        },
+        {
+            name:"Community",
+            path:"/community",
+            icon: MessagesSquare
         }
     ]
+
+    // Filter out items with undefined path (for non-admin roles)
+    let filteredList = list.filter(item => item.path);
+    if (user.role === "admin") {
+      filteredList = list.filter(item => item.path);
+    } else if (user.role === "instructor") {
+      filteredList = list.filter(item =>
+        item.path
+      );
+    } else if (user.role === "learner") {
+      filteredList = list.filter(item =>
+        ["Dashboard", "Courses", "Schedule","Certificates","Payments", "Chat", "Community"].includes(item.name) && item.path
+      );
+    }
 
     const toggleExpanded = (itemName: string) => {
         setExpandedItems(prev => 
@@ -122,16 +191,9 @@ export default function Sidebar(){
         )
     }
 
-    const isActive = (path: string) => pathname === path
-    const hasActiveChild = (children: any[]) => children?.some(child => isActive(child.path))
-
-    // Mock user data
-    const user = {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        role: "Administrator",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-    }
+    // Update isActive to handle undefined
+    const isActive = (path?: string) => !!path && pathname === path;
+    const hasActiveChild = (children: Children[]) => children?.some(child => isActive(child.path))
 
     return(
         <div className="w-64 h-screen bg-white border-r border-gray-200 flex flex-col">
@@ -163,7 +225,7 @@ export default function Sidebar(){
             {/* Navigation Menu */}
             <div className="flex-1 overflow-y-auto py-4">
                 <nav className="px-4 space-y-2">
-                    {list.map((item) => (
+                    {filteredList.map((item) => (
                         <div key={item.name}>
                             {item.children ? (
                                 // Item with children - dropdown
@@ -188,12 +250,14 @@ export default function Sidebar(){
                                             expandedItems.includes(item.name) ? "rotate-180" : ""
                                         }`} />
                                     </button>
-                                    {expandedItems.includes(item.name) && (
+                                    {expandedItems.includes(item.name) && item.children && (
                                         <div className="ml-4 mt-2 space-y-1">
-                                            {item.children.map((child) => (
+                                            {item.children
+                                                .filter((child): child is typeof child & { path: string } => typeof child.path === "string")
+                                                .map((child) => (
                                                 <Link
                                                     key={child.name}
-                                                    href={child.path}
+                                                    href={`${child.path}`}
                                                     className={`block px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-3 ${
                                                         isActive(child.path)
                                                             ? "bg-blue-100 text-blue-700 font-medium"
@@ -209,19 +273,21 @@ export default function Sidebar(){
                                 </div>
                             ) : (
                                 // Item without children - simple link
-                                <Link
-                                    href={item.path}
-                                    className={`block px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3 ${
-                                        isActive(item.path)
-                                            ? "bg-blue-50 text-blue-700 border border-blue-200 font-medium"
-                                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                                    }`}
-                                >
-                                    <item.icon className={`w-5 h-5 ${
-                                        isActive(item.path) ? "text-blue-600" : "text-gray-500"
-                                    }`} />
-                                    <span className="font-medium">{item.name}</span>
-                                </Link>
+                                typeof item.path === 'string' && (
+                                    <Link
+                                        href={item.path}
+                                        className={`block px-4 py-3 rounded-lg transition-all duration-200 flex items-center space-x-3 ${
+                                            isActive(item.path)
+                                                ? "bg-blue-50 text-blue-700 border border-blue-200 font-medium"
+                                                : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                                        }`}
+                                    >
+                                        <item.icon className={`w-5 h-5 ${
+                                            isActive(item.path) ? "text-blue-600" : "text-gray-500"
+                                        }`} />
+                                        <span className="font-medium">{item.name}</span>
+                                    </Link>
+                                )
                             )}
                         </div>
                     ))}
@@ -232,8 +298,8 @@ export default function Sidebar(){
             <div className="border-t border-gray-200 p-4">
                 <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                     <div className="relative">
-                        <img
-                            src={user.avatar}
+                        <Image
+                            src={user?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"}
                             alt={user.name}
                             className="w-10 h-10 rounded-full object-cover border-2 border-gray-200"
                         />

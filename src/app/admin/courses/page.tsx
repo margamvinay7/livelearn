@@ -3,31 +3,30 @@ import { useState } from 'react'
 import { 
   Plus, 
   Search, 
-  Filter, 
+ 
   MoreHorizontal, 
   Eye, 
   Edit, 
   Trash2, 
-  Play,
+
   Clock,
   Users,
   Star,
   BookOpen,
-  Calendar,
+
   DollarSign,
-  Award,
+
   TrendingUp,
   Grid,
   List,
-  Download,
+
   Upload,
-  Settings,
-  Tag,
+
   User,
-  CheckCircle,
-  AlertCircle,
-  Clock as ClockIcon
+ 
+
 } from 'lucide-react'
+import Image from 'next/image'
 
 export default function CoursesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -317,7 +316,7 @@ export default function CoursesPage() {
           }`}>
             {/* Course Image */}
             <div className={viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'}>
-              <img
+              <Image
                 src={course.image}
                 alt={course.title}
                 className="w-full h-full object-cover"

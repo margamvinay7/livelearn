@@ -3,44 +3,27 @@ import { useState } from 'react'
 import { 
   Plus, 
   Search, 
-  Filter, 
+
   MoreHorizontal, 
   Eye, 
   Edit, 
-  Trash2, 
+ 
   Users,
   User,
-  Mail,
-  Phone,
-  Calendar,
-  MapPin,
-  BookOpen,
+
   Award,
   TrendingUp,
   Grid,
   List,
-  Download,
+
   Upload,
-  Settings,
-  Tag,
-  CheckCircle,
-  AlertCircle,
-  Clock,
-  Star,
-  GraduationCap,
+  
   Target,
-  Activity,
-  Zap,
-  Crown,
-  Shield,
-  Heart,
+  
   MessageCircle,
-  Video,
-  FileText,
-  DollarSign,
-  ChevronDown,
-  ChevronUp
+  
 } from 'lucide-react'
+import Image from 'next/image'
 
 export default function StudentsPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -243,13 +226,13 @@ export default function StudentsPage() {
     }
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    })
-  }
+  // const formatDate = (dateString: string) => {
+  //   return new Date(dateString).toLocaleDateString('en-US', {
+  //     year: 'numeric',
+  //     month: 'short',
+  //     day: 'numeric'
+  //   })
+  // }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -371,7 +354,7 @@ export default function StudentsPage() {
             <div className={`p-6 ${viewMode === 'list' ? 'flex items-center space-x-4 flex-1' : ''}`}>
               <div className={`flex items-center space-x-4 ${viewMode === 'list' ? 'flex-1' : 'mb-4'}`}>
                 <div className="relative">
-                  <img
+                  <Image
                     src={student.avatar}
                     alt={student.name}
                     className="w-16 h-16 rounded-full object-cover border-4 border-gray-100"

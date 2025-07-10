@@ -2,22 +2,21 @@
 import { useState } from 'react'
 import { 
   TrendingUp, 
-  TrendingDown, 
+
   Users, 
-  BookOpen, 
+ 
   DollarSign, 
   Award,
-  Calendar,
+ 
   Clock,
-  Eye,
+ 
   Download,
-  Filter,
-  Calendar as CalendarIcon,
-  BarChart3,
-  PieChart,
-  Activity,
+  
+  
+
+
   Target,
-  Zap,
+
   ArrowUpRight,
   ArrowDownRight,
   MoreHorizontal
@@ -25,7 +24,7 @@ import {
 
 export default function AnalyticsPage() {
   const [selectedPeriod, setSelectedPeriod] = useState('month')
-  const [selectedMetric, setSelectedMetric] = useState('all')
+  
 
   // Mock data - replace with real data from your API
   const overviewStats = [

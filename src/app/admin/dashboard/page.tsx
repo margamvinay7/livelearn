@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+
 import { 
   Users, 
   BookOpen, 
@@ -9,18 +9,17 @@ import {
   Award,
   Clock,
   CheckCircle,
-  AlertCircle,
+
   Plus,
   Search,
   Filter,
-  Download,
+
   Eye,
   Edit,
   Trash2
 } from 'lucide-react'
 
 export default function AdminDashboard() {
-  const [selectedPeriod, setSelectedPeriod] = useState('week')
 
   // Mock data - replace with real data from your API
   const stats = [
@@ -148,7 +147,7 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-        <p className="text-gray-600">Welcome back! Here's what's happening with your learning platform.</p>
+        <p className="text-gray-600">Welcome back! Heres whats happening with your learning platform.</p>
       </div>
 
       {/* Stats Cards */}

@@ -1,37 +1,24 @@
 "use client"
-import { useState } from 'react'
+
 import { 
-  Plus, 
+
   Calendar,
   Clock,
   Users,
   MapPin,
-  Video,
-  BookOpen,
+
   Award,
   TrendingUp,
-  ChevronLeft,
-  ChevronRight,
-  Download,
+
   Upload,
   Eye,
   Edit,
-  Trash2,
-  Bell,
-  Star,
-  Play,
-  Mic,
-  Camera,
-  Monitor,
-  Globe,
-  Zap,
-  Target
+  
 } from 'lucide-react'
+import CalendarPage from '@/components/Calendar'
 
 export default function SchedulePage() {
-  const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month')
+
 
   // Mock data
   const events = [
@@ -151,58 +138,13 @@ export default function SchedulePage() {
     })
   }
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric'
-    })
-  }
+  
 
-  const getDaysInMonth = (date: Date) => {
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const firstDay = new Date(year, month, 1)
-    const lastDay = new Date(year, month + 1, 0)
-    const daysInMonth = lastDay.getDate()
-    const startingDay = firstDay.getDay()
-    
-    const days = []
-    
-    // Add empty days for padding
-    for (let i = 0; i < startingDay; i++) {
-      days.push(null)
-    }
-    
-    // Add days of the month
-    for (let i = 1; i <= daysInMonth; i++) {
-      days.push(new Date(year, month, i))
-    }
-    
-    return days
-  }
 
-  const getEventsForDate = (date: Date) => {
-    return events.filter(event => 
-      event.date.toDateString() === date.toDateString()
-    )
-  }
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentDate(prev => {
-      const newDate = new Date(prev)
-      if (direction === 'prev') {
-        newDate.setMonth(newDate.getMonth() - 1)
-      } else {
-        newDate.setMonth(newDate.getMonth() + 1)
-      }
-      return newDate
-    })
-  }
 
-  const today = new Date()
-  const days = getDaysInMonth(currentDate)
-  const monthName = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+
+  
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -218,10 +160,10 @@ export default function SchedulePage() {
               <Upload className="w-4 h-4" />
               <span>Import Events</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+            {/* <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
               <Plus className="w-4 h-4" />
               <span>Add Event</span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -251,107 +193,7 @@ export default function SchedulePage() {
         ))}
       </div>
 
-      {/* Calendar Controls */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-4">
-            <h2 className="text-xl font-semibold text-gray-900">{monthName}</h2>
-            <div className="flex items-center space-x-2">
-              <button 
-                onClick={() => navigateMonth('prev')}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-all duration-200"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button 
-                onClick={() => setCurrentDate(new Date())}
-                className="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200"
-              >
-                Today
-              </button>
-              <button 
-                onClick={() => navigateMonth('next')}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-all duration-200"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setViewMode('month')}
-              className={`px-3 py-1 rounded-lg transition-all duration-200 ${
-                viewMode === 'month' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              Month
-            </button>
-            <button
-              onClick={() => setViewMode('week')}
-              className={`px-3 py-1 rounded-lg transition-all duration-200 ${
-                viewMode === 'week' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              Week
-            </button>
-            <button
-              onClick={() => setViewMode('day')}
-              className={`px-3 py-1 rounded-lg transition-all duration-200 ${
-                viewMode === 'day' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              Day
-            </button>
-          </div>
-        </div>
-
-        {/* Calendar Grid */}
-        <div className="grid grid-cols-7 gap-1">
-          {/* Day Headers */}
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-            <div key={day} className="p-3 text-center text-sm font-medium text-gray-500">
-              {day}
-            </div>
-          ))}
-          
-          {/* Calendar Days */}
-          {days.map((day, index) => (
-            <div
-              key={index}
-              className={`min-h-[120px] p-2 border border-gray-100 hover:border-gray-300 transition-all duration-200 ${
-                day && day.toDateString() === today.toDateString() 
-                  ? 'bg-blue-50 border-blue-200' 
-                  : 'bg-white'
-              }`}
-            >
-              {day && (
-                <>
-                  <div className="text-sm font-medium text-gray-900 mb-2">
-                    {day.getDate()}
-                  </div>
-                  <div className="space-y-1">
-                    {getEventsForDate(day).slice(0, 2).map((event) => (
-                      <div
-                        key={event.id}
-                        className={`p-1 rounded text-xs cursor-pointer transition-all duration-200 transform hover:scale-105 ${getEventTypeColor(event.type)}`}
-                      >
-                        <div className="flex items-center space-x-1">
-                          <span className="truncate">{event.title}</span>
-                        </div>
-                      </div>
-                    ))}
-                    {getEventsForDate(day).length > 2 && (
-                      <div className="text-xs text-gray-500 text-center">
-                        +{getEventsForDate(day).length - 2} more
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      <CalendarPage/>
 
       {/* Upcoming Events */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -409,7 +251,7 @@ export default function SchedulePage() {
 
         {/* Quick Actions */}
         <div className="space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          {/* <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
             <div className="space-y-3">
               <button className="w-full flex items-center justify-center space-x-2 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
@@ -425,7 +267,7 @@ export default function SchedulePage() {
                 <span>Export Schedule</span>
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Event Statistics */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

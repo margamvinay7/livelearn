@@ -3,63 +3,39 @@ import { useState } from 'react'
 import { 
   Plus, 
   Search, 
-  Filter, 
+ 
   MoreHorizontal, 
   Eye, 
   Edit, 
-  Trash2, 
+
   Users,
   User,
-  Mail,
-  Phone,
+
   Calendar,
-  MapPin,
+
   BookOpen,
   Award,
   TrendingUp,
   Grid,
   List,
-  Download,
+
   Upload,
-  Settings,
-  Tag,
-  CheckCircle,
-  AlertCircle,
-  Clock,
-  Star,
+  
   GraduationCap,
   Target,
-  Activity,
-  Zap,
-  Crown,
-  Shield,
-  Heart,
-  MessageCircle,
-  Video,
-  FileText,
-  DollarSign,
-  ChevronDown,
-  ChevronUp,
-  UserPlus,
-  UserMinus,
+  
+  
   MessageSquare,
-  BarChart3,
-  PieChart,
-  Users as UsersIcon,
-  BookOpen as BookOpenIcon,
-  Calendar as CalendarIcon,
-  Award as AwardIcon,
-  Loader2,
-  ArrowRight,
-  ArrowLeft
+
 } from 'lucide-react'
+import Image from 'next/image'
 
 export default function StudentGroupsPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [showCreateModal, setShowCreateModal] = useState(false)
-  const [selectedGroup, setSelectedGroup] = useState<any>(null)
+
 
   // Mock data - replace with real data from your API
   const groups = [
@@ -393,7 +369,7 @@ export default function StudentGroupsPage() {
           }`}>
             {/* Group Image */}
             <div className={viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'}>
-              <img
+              <Image
                 src={group.image}
                 alt={group.name}
                 className="w-full h-full object-cover"
