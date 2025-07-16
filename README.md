@@ -1,3 +1,9 @@
+# 🚧 Project in Active Development
+
+Note : This project is currently under active development. At this stage, I'm focusing on building out the core UI and backend functionality. Some files may appear large or unoptimized because I haven't yet performed code splitting or modularization.
+
+Please note: The codebase will be fully refactored and optimized as I finalize the functionality. My current priority is feature completeness — once that is achieved, I’ll focus on organizing the code into smaller, reusable components and improving overall structure and performance.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
