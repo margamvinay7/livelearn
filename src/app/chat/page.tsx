@@ -144,7 +144,7 @@ export default function ChatPage() {
       setMessages(mockMessages)
       scrollToBottom()
     }
-  }, [selectedChat,mockMessages])
+  }, [selectedChat])
 
   useEffect(() => {
     scrollToBottom()
@@ -220,7 +220,7 @@ export default function ChatPage() {
         {/* Header */}
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-gray-900">Chats</h1>
+            <h1 className="text-xl font-bold text-blue-700">Chats</h1>
             <div className="flex items-center space-x-2">
               <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <Search className="w-5 h-5 text-gray-600" />
@@ -243,11 +243,12 @@ export default function ChatPage() {
               }`}
             >
               <div className="flex items-center space-x-3">
-                <div className="relative">
+                <div className="relative w-12 h-12">
                   <Image
                     src={contact.avatar}
                     alt={contact.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                    fill={true}
+                    className="rounded-full object-cover"
                   />
                   {contact.isOnline && (
                     <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
@@ -255,7 +256,7 @@ export default function ChatPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900 truncate">{contact.name}</h3>
+                    <h3 className="font-semibold text-blue-700 truncate">{contact.name}</h3>
                     <span className="text-xs text-gray-500">{contact.lastMessageTime}</span>
                   </div>
                   <p className="text-sm text-gray-600 truncate mt-1">{contact.lastMessage}</p>
@@ -287,18 +288,19 @@ export default function ChatPage() {
                   >
                     <ArrowLeft className="w-5 h-5 text-gray-600" />
                   </button>
-                  <div className="relative">
+                  <div className="relative w-10 h-10">
                     <Image
                       src={selectedChat.avatar}
                       alt={selectedChat.name}
-                      className="w-10 h-10 rounded-full object-cover"
+                      fill={true}
+                      className="rounded-full object-cover"
                     />
                     {selectedChat.isOnline && (
                       <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
                     )}
                   </div>
                   <div>
-                    <h2 className="font-semibold text-gray-900">{selectedChat.name}</h2>
+                    <h2 className="font-semibold text-blue-700">{selectedChat.name}</h2>
                     <p className="text-sm text-gray-500">
                       {selectedChat.isOnline ? 'Online' : selectedChat.status}
                     </p>
@@ -333,7 +335,7 @@ export default function ChatPage() {
                       className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
                         message.sender === 'me'
                           ? 'bg-blue-500 text-white rounded-br-md'
-                          : 'bg-white text-gray-900 rounded-bl-md border border-gray-200'
+                          : 'bg-white text-blue-700 rounded-bl-md border border-gray-200'
                       }`}
                     >
                       <p className="text-sm">{message.text}</p>
@@ -350,7 +352,7 @@ export default function ChatPage() {
                 {/* Typing Indicator */}
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-white text-gray-900 rounded-2xl rounded-bl-md border border-gray-200 px-4 py-2 shadow-sm">
+                    <div className="bg-white text-blue-700 rounded-2xl rounded-bl-md border border-gray-200 px-4 py-2 shadow-sm">
                       <div className="flex items-center space-x-1">
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
@@ -415,7 +417,7 @@ export default function ChatPage() {
                 {newMessage.trim() ? (
                   <button
                     onClick={handleSendMessage}
-                    className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors"
+                    className="p-2 bg-blue-500 hover:bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full transition-colors"
                   >
                     <Send className="w-5 h-5" />
                   </button>
@@ -434,7 +436,7 @@ export default function ChatPage() {
               <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <User className="w-12 h-12 text-blue-500" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to LMS Chat</h2>
+              <h2 className="text-2xl font-bold text-blue-700 mb-2">Welcome to LMS Chat</h2>
               <p className="text-gray-600 mb-6">Select a chat to start messaging</p>
               <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
                 <div className="flex items-center space-x-1">
@@ -454,7 +456,7 @@ export default function ChatPage() {
       {/* Minimize/Maximize Button */}
       <button
         onClick={() => setIsMinimized(!isMinimized)}
-        className="lg:hidden fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-50"
+        className="lg:hidden fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-gradient-to-r from-blue-600 to-purple-600 transition-colors z-50"
       >
         {isMinimized ? <Maximize2 className="w-5 h-5" /> : <Minimize2 className="w-5 h-5" />}
       </button>

@@ -131,7 +131,7 @@ export default function InstructorDashboard() {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Instructor Dashboard</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">Instructor Dashboard</h1>
         <p className="text-gray-600">Welcome back! Heres your teaching overview and recent activity.</p>
       </div>
 
@@ -142,7 +142,7 @@ export default function InstructorDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
                 <div className="flex items-center mt-2">
                   <TrendingUp className={`w-4 h-4 ${stat.changeType === 'positive' ? 'text-green-500' : 'text-red-500'}`} />
                   <span className={`text-sm font-medium ml-1 ${stat.changeType === 'positive' ? 'text-green-600' : 'text-red-600'}`}>{stat.change}</span>
@@ -163,7 +163,7 @@ export default function InstructorDashboard() {
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Recent Activities</h2>
+              <h2 className="text-xl font-semibold text-blue-700">Recent Activities</h2>
               <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View All</button>
             </div>
             <div className="space-y-4">
@@ -171,7 +171,7 @@ export default function InstructorDashboard() {
                 <div key={activity.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors animate-fade-in-up">
                   <div className="flex-shrink-0 mt-1">{getActivityIcon(activity.type)}</div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">{activity.title}</p>
+                    <p className="text-sm font-medium text-blue-700">{activity.title}</p>
                     <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
                     <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
                   </div>
@@ -188,7 +188,7 @@ export default function InstructorDashboard() {
         <div>
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Top Courses</h2>
+              <h2 className="text-xl font-semibold text-blue-700">Top Courses</h2>
               <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View All</button>
             </div>
             <div className="space-y-4">
@@ -198,7 +198,7 @@ export default function InstructorDashboard() {
                     <BookOpen className="w-6 h-6 text-blue-500" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 truncate">{course.title}</h3>
+                    <h3 className="font-semibold text-blue-700 truncate">{course.title}</h3>
                     <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
                       <Users className="w-4 h-4" /> {course.students} students
                       <Star className="w-4 h-4 text-yellow-400 ml-2" /> {course.rating}

@@ -144,7 +144,7 @@ export default function AdminPaymentsPage() {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Payments</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">Payments</h1>
         <p className="text-gray-600">
           Manage all course payments, refunds, and payouts in one place.
         </p>
@@ -155,7 +155,7 @@ export default function AdminPaymentsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex items-center justify-between animate-fade-in">
           <div>
             <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">${totalRevenue.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-blue-700 mt-1">${totalRevenue.toLocaleString()}</p>
           </div>
           <div className="bg-blue-500 p-3 rounded-lg">
             <BadgeDollarSign className="w-6 h-6 text-white" />
@@ -164,7 +164,7 @@ export default function AdminPaymentsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex items-center justify-between animate-fade-in delay-100">
           <div>
             <p className="text-sm font-medium text-gray-600">Pending Payouts</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">${pending.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-blue-700 mt-1">${pending.toLocaleString()}</p>
           </div>
           <div className="bg-yellow-500 p-3 rounded-lg">
             <RefreshCcw className="w-6 h-6 text-white" />
@@ -173,7 +173,7 @@ export default function AdminPaymentsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex items-center justify-between animate-fade-in delay-200">
           <div>
             <p className="text-sm font-medium text-gray-600">Completed Payments</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">{completed}</p>
+            <p className="text-2xl font-bold text-blue-700 mt-1">{completed}</p>
           </div>
           <div className="bg-green-500 p-3 rounded-lg">
             <TrendingUp className="w-6 h-6 text-white" />
@@ -182,7 +182,7 @@ export default function AdminPaymentsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex items-center justify-between animate-fade-in delay-300">
           <div>
             <p className="text-sm font-medium text-gray-600">Refunds</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">{refunded}</p>
+            <p className="text-2xl font-bold text-blue-700 mt-1">{refunded}</p>
           </div>
           <div className="bg-red-500 p-3 rounded-lg">
             <Banknote className="w-6 h-6 text-white" />
@@ -214,7 +214,7 @@ export default function AdminPaymentsPage() {
             <option value="Refunded">Refunded</option>
           </select>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow transition-colors">
+        <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow transition-colors">
           <ArrowDownToLine className="w-4 h-4" />
           Export CSV
         </button>
@@ -250,8 +250,8 @@ export default function AdminPaymentsPage() {
                 style={{ animationDelay: `${idx * 40}ms` }}
                 onClick={() => setModal(p)}
               >
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{p.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{p.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-700">{p.id}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-700">{p.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{p.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-700 font-semibold">${p.amount.toFixed(2)}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{p.date}</td>
@@ -285,21 +285,21 @@ export default function AdminPaymentsPage() {
               <span className="sr-only">Close</span>
               <XCircle className="w-6 h-6 text-gray-400" />
             </button>
-            <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2">
               <BadgeDollarSign className="w-6 h-6 text-blue-500" /> Payment Details
             </h2>
             <div className="space-y-2 mt-4">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Payment ID:</span>
-                <span className="font-medium text-gray-900">{modal.id}</span>
+                <span className="font-medium text-blue-700">{modal.id}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Name:</span>
-                <span className="font-medium text-gray-900">{modal.name}</span>
+                <span className="font-medium text-blue-700">{modal.name}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Email:</span>
-                <span className="font-medium text-gray-900">{modal.email}</span>
+                <span className="font-medium text-blue-700">{modal.email}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Amount:</span>
@@ -307,7 +307,7 @@ export default function AdminPaymentsPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Date:</span>
-                <span className="font-medium text-gray-900">{modal.date}</span>
+                <span className="font-medium text-blue-700">{modal.date}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Status:</span>
@@ -319,14 +319,14 @@ export default function AdminPaymentsPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Method:</span>
-                <span className="font-medium text-gray-900">{modal.method}</span>
+                <span className="font-medium text-blue-700">{modal.method}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Details:</span>
-                <span className="font-medium text-gray-900">{modal.details}</span>
+                <span className="font-medium text-blue-700">{modal.details}</span>
               </div>
             </div>
-            <button className="mt-6 w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow transition-colors">
+            <button className="mt-6 w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow transition-colors">
               <Download className="w-4 h-4" /> Download Invoice
             </button>
           </div>

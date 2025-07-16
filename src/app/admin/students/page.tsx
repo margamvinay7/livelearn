@@ -240,7 +240,7 @@ export default function StudentsPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Management</h1>
+            <h1 className="text-3xl font-bold text-blue-700 mb-2">Student Management</h1>
             <p className="text-gray-600">Manage and track your student progress and performance</p>
           </div>
           <div className="flex items-center space-x-3">
@@ -248,7 +248,7 @@ export default function StudentsPage() {
               <Upload className="w-4 h-4" />
               <span>Import Students</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+            <button className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
               <Plus className="w-4 h-4" />
               <span>Add Student</span>
             </button>
@@ -266,7 +266,7 @@ export default function StudentsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
                 <div className="flex items-center mt-2">
                   <TrendingUp className="w-4 h-4 text-green-500" />
                   <span className="text-sm font-medium text-green-600 ml-1">{stat.change}</span>
@@ -353,11 +353,12 @@ export default function StudentsPage() {
             {/* Student Header */}
             <div className={`p-6 ${viewMode === 'list' ? 'flex items-center space-x-4 flex-1' : ''}`}>
               <div className={`flex items-center space-x-4 ${viewMode === 'list' ? 'flex-1' : 'mb-4'}`}>
-                <div className="relative">
+                <div className="relative w-16 h-16">
                   <Image
                     src={student.avatar}
                     alt={student.name}
-                    className="w-16 h-16 rounded-full object-cover border-4 border-gray-100"
+                    fill={true}
+                    className="rounded-full object-cover border-4 border-gray-100"
                   />
                   <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${
                     student.status === 'active' ? 'bg-green-500' : 
@@ -366,7 +367,7 @@ export default function StudentsPage() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{student.name}</h3>
+                    <h3 className="text-lg font-semibold text-blue-700">{student.name}</h3>
                     <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
                       <MoreHorizontal className="w-4 h-4" />
                     </button>
@@ -398,7 +399,7 @@ export default function StudentsPage() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center p-2 bg-gray-50 rounded-lg">
-                    <div className="text-lg font-bold text-gray-900">{student.courses}</div>
+                    <div className="text-lg font-bold text-blue-700">{student.courses}</div>
                     <div className="text-xs text-gray-600">Courses</div>
                   </div>
                   <div className="text-center p-2 bg-gray-50 rounded-lg">
@@ -463,13 +464,13 @@ export default function StudentsPage() {
           Showing 1-6 of {students.length} students
         </div>
         <div className="flex items-center space-x-2">
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed">
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
             Previous
           </button>
-          <button className="px-3 py-2 text-sm bg-blue-600 text-white rounded-lg">1</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">2</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">3</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">
+          <button className="px-3 py-2 text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">1</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">2</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">3</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">
             Next
           </button>
         </div>

@@ -218,7 +218,7 @@ export default function CoursesPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Course Management</h1>
+            <h1 className="text-3xl font-bold text-blue-700 mb-2">Course Management</h1>
             <p className="text-gray-600">Manage and organize your learning content</p>
           </div>
           <div className="flex items-center space-x-3">
@@ -226,7 +226,7 @@ export default function CoursesPage() {
               <Upload className="w-4 h-4" />
               <span>Import</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <button className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
               <Plus className="w-4 h-4" />
               <span>Create Course</span>
             </button>
@@ -241,7 +241,7 @@ export default function CoursesPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
                 <div className="flex items-center mt-2">
                   <TrendingUp className="w-4 h-4 text-green-500" />
                   <span className="text-sm font-medium text-green-600 ml-1">{stat.change}</span>
@@ -262,7 +262,7 @@ export default function CoursesPage() {
           <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-900" />
               <input
                 type="text"
                 placeholder="Search courses..."
@@ -315,11 +315,12 @@ export default function CoursesPage() {
             viewMode === 'list' ? 'flex' : ''
           }`}>
             {/* Course Image */}
-            <div className={viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'}>
+            <div className={`${viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'} relative `}>
               <Image
                 src={course.image}
                 alt={course.title}
-                className="w-full h-full object-cover"
+                fill={true}
+                className="object-cover"
               />
             </div>
 
@@ -327,7 +328,7 @@ export default function CoursesPage() {
             <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{course.title}</h3>
+                  <h3 className="text-lg font-semibold text-blue-700 mb-1">{course.title}</h3>
                   <p className="text-sm text-gray-600 mb-2">{course.description}</p>
                 </div>
                 <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
@@ -409,13 +410,13 @@ export default function CoursesPage() {
           Showing 1-6 of {courses.length} courses
         </div>
         <div className="flex items-center space-x-2">
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed">
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
             Previous
           </button>
-          <button className="px-3 py-2 text-sm bg-blue-600 text-white rounded-lg">1</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">2</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">3</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">
+          <button className="px-3 py-2 text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">1</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">2</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">3</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">
             Next
           </button>
         </div>

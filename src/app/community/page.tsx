@@ -198,7 +198,7 @@ export default function CommunityPage() {
     {
       id: '2',
       name: 'Sarah Wilson',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
       status: 'online',
       role: 'admin',
       isSpeaking: true
@@ -206,21 +206,21 @@ export default function CommunityPage() {
     {
       id: '3',
       name: 'Mike Johnson',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
       status: 'idle',
       role: 'moderator'
     },
     {
       id: '4',
       name: 'Emily Brown',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
       status: 'online',
       role: 'member'
     },
     {
       id: '5',
       name: 'Alex Chen',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
       status: 'dnd',
       role: 'member',
       isMuted: true
@@ -228,7 +228,7 @@ export default function CommunityPage() {
     {
       id: '6',
       name: 'Lisa Wang',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
       status: 'offline',
       role: 'member'
     }
@@ -283,7 +283,7 @@ export default function CommunityPage() {
       setMessages(mockMessages)
       scrollToBottom()
     }
-  }, [selectedChannel,mockMessages])
+  }, [selectedChannel])
 
   useEffect(() => {
     scrollToBottom()
@@ -384,7 +384,7 @@ export default function CommunityPage() {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Community</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">Community</h1>
         <p className="text-gray-600">Connect with fellow learners and instructors in our vibrant community.</p>
       </div>
 
@@ -394,7 +394,7 @@ export default function CommunityPage() {
           {/* Server List Header */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">Communities</h2>
+              <h2 className="text-xl font-semibold text-blue-700">Communities</h2>
               <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <Plus className="w-5 h-5 text-gray-600" />
               </button>
@@ -421,7 +421,7 @@ export default function CommunityPage() {
                       {server.icon}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 truncate">{server.name}</h3>
+                      <h3 className="font-semibold text-blue-700 truncate">{server.name}</h3>
                       <p className="text-sm text-gray-600 truncate">{server.description}</p>
                       <div className="flex items-center mt-1">
                         <Users className="w-4 h-4 text-gray-400" />
@@ -447,7 +447,7 @@ export default function CommunityPage() {
                       {selectedServer.icon}
                     </div>
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-900">{selectedServer.name}</h2>
+                      <h2 className="text-xl font-semibold text-blue-700">{selectedServer.name}</h2>
                       <p className="text-sm text-gray-600">{selectedServer.memberCount} members</p>
                     </div>
                   </div>
@@ -469,7 +469,7 @@ export default function CommunityPage() {
                 {/* Channel List */}
                 <div className="w-64 border-r border-gray-200 flex flex-col">
                   <div className="p-4 border-b border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Channels</h3>
+                    <h3 className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Channels</h3>
                   </div>
                   <div className="flex-1 overflow-y-auto p-2">
                     <div className="space-y-1">
@@ -480,7 +480,7 @@ export default function CommunityPage() {
                           className={`flex items-center space-x-2 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
                             channel.isActive 
                               ? 'bg-blue-50 text-blue-700 border border-blue-200' 
-                              : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700'
                           }`}
                         >
                           {channel.type === 'text' ? (
@@ -514,7 +514,7 @@ export default function CommunityPage() {
                             ) : (
                               <Volume2 className="w-5 h-5 text-gray-600" />
                             )}
-                            <h3 className="text-lg font-semibold text-gray-900">{selectedChannel.name}</h3>
+                            <h3 className="text-lg font-semibold text-blue-700">{selectedChannel.name}</h3>
                             {selectedChannel.type === 'voice' && (
                               <span className="text-sm text-gray-500">({selectedChannel.memberCount} members)</span>
                             )}
@@ -538,15 +538,18 @@ export default function CommunityPage() {
                         <div className="flex-1 overflow-y-auto p-4">
                           <div className="space-y-4">
                             {messages.map((message) => (
-                              <div key={message.id} className="flex items-start space-x-3 group hover:bg-gray-50 p-3 rounded-lg transition-colors">
+                              <div key={message.id} className="flex  items-start space-x-3 group hover:bg-gray-50 p-3 rounded-lg transition-colors">
+                                <div className='relative w-10 h-10'>
                                 <Image
-                                  src={message.sender.avatar}
+                                  src={message.sender.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"}
                                   alt={message.sender.name}
-                                  className="w-10 h-10 rounded-full flex-shrink-0"
+                                  fill={true}
+                                  className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                                 />
+                                </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center space-x-2">
-                                    <span className="font-medium text-gray-900">{message.sender.name}</span>
+                                    <span className="font-medium text-blue-700">{message.sender.name}</span>
                                     {getRoleIcon(message.sender.role)}
                                     <span className="text-xs text-gray-500">{formatTime(message.timestamp)}</span>
                                   </div>
@@ -557,12 +560,15 @@ export default function CommunityPage() {
                             
                             {/* Typing Indicator */}
                             {isTyping && (
-                              <div className="flex items-start space-x-3 p-3">
+                              <div className="flex  items-start space-x-3 p-3">
+                                <div className='relative w-10 h-10'>
                                 <Image
-                                  src={members[1].avatar}
+                                  src={members[1].avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"}
                                   alt={members[1].name}
-                                  className="w-10 h-10 rounded-full flex-shrink-0"
+                                  fill={true}
+                                  className="object-cover rounded-full flex-shrink-0"
                                 />
+                                </div>
                                 <div className="flex items-center space-x-1">
                                   <div className="flex space-x-1">
                                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
@@ -582,7 +588,7 @@ export default function CommunityPage() {
                         {showMemberList && (
                           <div className="w-64 border-l border-gray-200 p-4">
                             <div className="flex items-center justify-between mb-4">
-                              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Members — {members.length}</h3>
+                              <h3 className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Members — {members.length}</h3>
                               <button className="p-1 hover:bg-gray-100 rounded transition-colors">
                                 <UserPlus className="w-4 h-4 text-gray-600" />
                               </button>
@@ -590,17 +596,18 @@ export default function CommunityPage() {
                             <div className="space-y-2">
                               {members.map((member) => (
                                 <div key={member.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                                  <div className="relative">
+                                  <div className="relative w-8 h-8">
                                     <Image
-                                      src={member.avatar}
+                                      src={member.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"}
                                       alt={member.name}
+                                      fill={true}
                                       className="w-8 h-8 rounded-full"
                                     />
                                     <div className={`absolute -bottom-1 -right-1 w-3 h-3 ${getStatusColor(member.status)} border-2 border-white rounded-full`}></div>
                                   </div>
                                   <div className="flex-1 min-w-0">
                                     <div className="flex items-center space-x-1">
-                                      <span className="text-sm font-medium text-gray-900 truncate">{member.name}</span>
+                                      <span className="text-sm font-medium text-blue-700 truncate">{member.name}</span>
                                       {getRoleIcon(member.role)}
                                     </div>
                                     <p className="text-xs text-gray-500 capitalize">{member.status}</p>
@@ -670,7 +677,7 @@ export default function CommunityPage() {
                             {newMessage.trim() ? (
                               <button
                                 onClick={handleSendMessage}
-                                className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                                className="p-2 bg-blue-500 hover:bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg transition-colors"
                               >
                                 <Send className="w-5 h-5" />
                               </button>
@@ -690,7 +697,7 @@ export default function CommunityPage() {
                         <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                           <MessageCircle className="w-12 h-12 text-blue-500" />
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to {selectedServer.name}</h2>
+                        <h2 className="text-2xl font-bold text-blue-700 mb-2">Welcome to {selectedServer.name}</h2>
                         <p className="text-gray-600 mb-6">Select a channel to start chatting with the community</p>
                         <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
                           <div className="flex items-center space-x-1">
@@ -719,28 +726,28 @@ export default function CommunityPage() {
                 <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <GraduationCap className="w-12 h-12 text-blue-500" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Community</h2>
+                <h2 className="text-2xl font-bold text-blue-700 mb-2">Welcome to Community</h2>
                 <p className="text-gray-600 mb-6">Select a community to start connecting with fellow learners</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-2">
                       <Users className="w-4 h-4 text-white" />
                     </div>
-                    <h3 className="font-semibold text-gray-900">Connect</h3>
+                    <h3 className="font-semibold text-blue-700">Connect</h3>
                     <p className="text-sm text-gray-600">Join communities of learners</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-2">
                       <MessageCircle className="w-4 h-4 text-white" />
                     </div>
-                    <h3 className="font-semibold text-gray-900">Chat</h3>
+                    <h3 className="font-semibold text-blue-700">Chat</h3>
                     <p className="text-sm text-gray-600">Discuss topics and ask questions</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-2">
                       <TrendingUp className="w-4 h-4 text-white" />
                     </div>
-                    <h3 className="font-semibold text-gray-900">Learn</h3>
+                    <h3 className="font-semibold text-blue-700">Learn</h3>
                     <p className="text-sm text-gray-600">Grow together with peers</p>
                   </div>
                 </div>
@@ -754,13 +761,13 @@ export default function CommunityPage() {
       <div className="lg:hidden fixed bottom-4 right-4 flex space-x-2 z-50">
         <button
           onClick={() => setShowServerList(!showServerList)}
-          className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors"
+          className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-gradient-to-r from-blue-600 to-purple-600 transition-colors"
         >
           {showServerList ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
         </button>
         <button
           onClick={() => setShowMemberList(!showMemberList)}
-          className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors"
+          className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-gradient-to-r from-blue-600 to-purple-600 transition-colors"
         >
           <Users className="w-5 h-5" />
         </button>

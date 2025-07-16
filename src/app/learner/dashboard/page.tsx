@@ -118,7 +118,7 @@ export default function LearnerDashboard() {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Learner Dashboard</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">Learner Dashboard</h1>
         <p className="text-gray-600">Welcome back! Heres your learning progress and recent activity.</p>
       </div>
 
@@ -129,7 +129,7 @@ export default function LearnerDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
               </div>
               <div className={`${stat.color} p-3 rounded-lg`}>
                 <stat.icon className="w-6 h-6 text-white" />
@@ -145,14 +145,14 @@ export default function LearnerDashboard() {
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Recent Activity</h2>
+              <h2 className="text-xl font-semibold text-blue-700">Recent Activity</h2>
             </div>
             <div className="space-y-4">
               {recentActivity.map((activity) => (
                 <div key={activity.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors animate-fade-in-up">
                   <div className="flex-shrink-0 mt-1">{getActivityIcon(activity.type)}</div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">{activity.title}</p>
+                    <p className="text-sm font-medium text-blue-700">{activity.title}</p>
                     <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
                     <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
                   </div>
@@ -166,7 +166,7 @@ export default function LearnerDashboard() {
         <div>
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Enrolled Courses</h2>
+              <h2 className="text-xl font-semibold text-blue-700">Enrolled Courses</h2>
             </div>
             <div className="space-y-4">
               {enrolledCourses.map((course, idx) => (
@@ -176,7 +176,7 @@ export default function LearnerDashboard() {
                       <BookOpen className="w-6 h-6 text-blue-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 truncate">{course.title}</h3>
+                      <h3 className="font-semibold text-blue-700 truncate">{course.title}</h3>
                       <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
                         <Star className="w-4 h-4 text-yellow-400 ml-2" /> {course.rating}
                         <span className="ml-2">{course.completed}/{course.lessons} lessons</span>

@@ -87,7 +87,7 @@ export default function IssueCertificationPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-1 flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-blue-700 mb-1 flex items-center gap-2">
             <Award className="w-8 h-8 text-yellow-500" /> Issue Certification
           </h1>
           <p className="text-gray-600">Fill out the form to issue a new certification</p>
@@ -105,7 +105,9 @@ export default function IssueCertificationPage() {
             <div className="relative">
               <div className="w-32 h-24 rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
                 {filePreview ? (
-                  <Image src={filePreview} alt="Certificate Preview" className="w-full h-full object-cover" />
+                  <div className="w-full h-full relative">
+                    <Image src={filePreview} alt="Certificate Preview" fill={true} className="object-cover" />
+                  </div>
                 ) : (
                   <FileText className="w-8 h-8 text-gray-400" />
                 )}
@@ -113,7 +115,7 @@ export default function IssueCertificationPage() {
               <button
                 type="button"
                 onClick={() => document.getElementById("cert-file-upload")?.click()}
-                className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
               >
                 <Upload className="w-4 h-4" />
               </button>
@@ -135,7 +137,7 @@ export default function IssueCertificationPage() {
               />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 mb-1">Certificate File</h3>
+              <h3 className="font-medium text-blue-700 mb-1">Certificate File</h3>
               <p className="text-sm text-gray-600">Upload a certificate image or PDF (optional)</p>
             </div>
           </div>
@@ -240,7 +242,7 @@ export default function IssueCertificationPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow"
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow"
           >
             {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
             <span>{isSubmitting ? "Issuing..." : "Issue Certification"}</span>

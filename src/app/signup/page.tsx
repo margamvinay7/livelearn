@@ -190,11 +190,11 @@ export default function Signup() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-200">
+            <button className="p-2 text-gray-600 hover:text-blue-700 rounded-lg hover:bg-gray-100 transition-all duration-200">
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Sign Up</h1>
+              <h1 className="text-3xl font-bold text-blue-700 mb-2">Student Sign Up</h1>
               <p className="text-gray-600">Create a new student account with comprehensive information</p>
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function Signup() {
               }`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
                   currentStep >= step.id 
-                    ? 'bg-blue-600 border-blue-600 text-white' 
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 border-blue-600 text-white' 
                     : 'border-gray-300 bg-white'
                 }`}>
                   {currentStep > step.id ? (
@@ -226,7 +226,7 @@ export default function Signup() {
               </div>
               {index < steps.length - 1 && (
                 <div className={`w-16 h-0.5 mx-4 transition-all duration-300 ${
-                  currentStep > step.id ? 'bg-blue-600' : 'bg-gray-300'
+                  currentStep > step.id ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'bg-gray-300'
                 }`}></div>
               )}
             </div>
@@ -242,7 +242,7 @@ export default function Signup() {
             {currentStep === 1 && (
               <div className="space-y-6 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Personal Information</h2>
+                  <h2 className="text-2xl font-bold text-blue-700 mb-2">Personal Information</h2>
                   <p className="text-gray-600">Please provide the students basic personal details</p>
                 </div>
 
@@ -251,14 +251,16 @@ export default function Signup() {
                   <div className="relative">
                     <div className="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
                       {avatarPreview ? (
-                        <Image src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" />
+                        <div className='relative w-full h-full'>
+                          <Image src={avatarPreview} alt="Avatar preview" fill={true} className="object-cover" />
+                          </div>
                       ) : (
                         <Camera className="w-8 h-8 text-gray-400" />
                       )}
                     </div>
                     <button
                       onClick={() => document.getElementById('avatar-upload')?.click()}
-                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                      className="absolute -bottom-1 -right-1 w-8 h-8 btn-primary flex items-center justify-center"
                     >
                       <Upload className="w-4 h-4" />
                     </button>
@@ -272,7 +274,7 @@ export default function Signup() {
                     )}
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">Profile Picture</h3>
+                    <h3 className="font-medium text-blue-700 mb-1">Profile Picture</h3>
                     <p className="text-sm text-gray-600">Upload a clear photo of the student</p>
                     <input
                       id="avatar-upload"
@@ -422,7 +424,7 @@ export default function Signup() {
             {currentStep === 2 && (
               <div className="space-y-6 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Academic Information</h2>
+                  <h2 className="text-2xl font-bold text-blue-700 mb-2">Academic Information</h2>
                   <p className="text-gray-600">Tell us about the students educational background and interests</p>
                 </div>
 
@@ -517,7 +519,7 @@ export default function Signup() {
             {currentStep === 3 && (
               <div className="space-y-6 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Setup</h2>
+                  <h2 className="text-2xl font-bold text-blue-700 mb-2">Account Setup</h2>
                   <p className="text-gray-600">Create login credentials for the student account</p>
                 </div>
 
@@ -608,7 +610,7 @@ export default function Signup() {
             {currentStep === 4 && (
               <div className="space-y-6 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Emergency Contact</h2>
+                  <h2 className="text-2xl font-bold text-blue-700 mb-2">Emergency Contact</h2>
                   <p className="text-gray-600">Provide emergency contact information for the student</p>
                 </div>
 
@@ -674,14 +676,14 @@ export default function Signup() {
             {currentStep === 5 && (
               <div className="space-y-6 animate-fadeIn">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Review & Submit</h2>
+                  <h2 className="text-2xl font-bold text-blue-700 mb-2">Review & Submit</h2>
                   <p className="text-gray-600">Please review all information before creating the student account</p>
                 </div>
 
                 <div className="bg-gray-50 rounded-lg p-6 space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-3">Personal Information</h3>
+                      <h3 className="font-semibold text-blue-700 mb-3">Personal Information</h3>
                       <div className="space-y-2 text-sm">
                         <p><span className="font-medium">Name:</span> {formData.firstName} {formData.lastName}</p>
                         <p><span className="font-medium">Email:</span> {formData.email}</p>
@@ -690,7 +692,7 @@ export default function Signup() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-3">Academic Information</h3>
+                      <h3 className="font-semibold text-blue-700 mb-3">Academic Information</h3>
                       <div className="space-y-2 text-sm">
                         <p><span className="font-medium">Education:</span> {formData.educationLevel}</p>
                         <p><span className="font-medium">Interests:</span> {formData.interests.join(', ')}</p>
@@ -710,7 +712,7 @@ export default function Signup() {
               <button
                 onClick={prevStep}
                 disabled={currentStep === 1}
-                className="flex items-center space-x-2 px-6 py-3 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Previous</span>
@@ -721,7 +723,7 @@ export default function Signup() {
                   <button
                     onClick={nextStep}
                     disabled={!isStepValid(currentStep)}
-                    className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+                    className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span>Next</span>
                     <ArrowRight className="w-4 h-4" />
@@ -730,7 +732,7 @@ export default function Signup() {
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting || !isStepValid(currentStep)}
-                    className="flex items-center space-x-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+                    className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <Loader2 className="w-4 h-4 animate-spin" />

@@ -285,7 +285,7 @@ const progressPercent = Math.min((currentTime / actualDuration) * 100, 100);
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{mockCourse.title}</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">{mockCourse.title}</h1>
         <p className="text-gray-600">{mockCourse.description}</p>
       </div>
 
@@ -314,7 +314,7 @@ const progressPercent = Math.min((currentTime / actualDuration) * 100, 100);
           </div>
           <div className="flex items-center justify-between mb-2">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">{currentChapter.title}</h2>
+              <h2 className="text-xl font-semibold text-blue-700">{currentChapter.title}</h2>
               <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                 <Clock className="w-4 h-4" /> {formatTime(currentChapter.duration)}
               </div>
@@ -344,7 +344,7 @@ const progressPercent = Math.min((currentTime / actualDuration) * 100, 100);
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-6">
             <BookOpen className="w-5 h-5 text-blue-500" />
-            <h2 className="text-lg font-semibold text-gray-900">Chapters</h2>
+            <h2 className="text-lg font-semibold text-blue-700">Chapters</h2>
           </div>
           <ul className="space-y-3">
             {mockCourse.chapters.map((chapter, idx) => {
@@ -366,7 +366,7 @@ const progressPercent = Math.min((currentTime / actualDuration) * 100, 100);
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className={`font-medium truncate ${isCurrent ? "text-blue-700" : "text-gray-900"}`}>{chapter.title}</h3>
+                    <h3 className={`font-medium truncate ${isCurrent ? "text-blue-700" : "text-blue-700"}`}>{chapter.title}</h3>
                     <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                       <Clock className="w-4 h-4" /> {formatTime(chapter.duration)}
                     </div>

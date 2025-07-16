@@ -123,7 +123,7 @@ export default function CalendarPage() {
             <GraduationCap className="w-7 h-7 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">LMS Calendar</h1>
+            <h1 className="text-3xl font-bold text-blue-700 mb-1">LMS Calendar</h1>
             <p className="text-gray-500 text-sm">Manage and track all your learning events in one place</p>
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function CalendarPage() {
               setIsEditing(false);
               setModalOpen(true);
             }}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 hover:scale-105 transition-all duration-200"
+            className="flex items-center gap-2 px-6 py-3 btn-primary font-semibold shadow-md"
           >
             <Plus className="w-5 h-5" /> Add Event
           </button>
@@ -191,7 +191,7 @@ export default function CalendarPage() {
               <X className="w-5 h-5" />
             </button>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-1 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-blue-700 mb-1 flex items-center gap-2">
                 {isEditing ? <Edit2 className="w-5 h-5 text-blue-600" /> : <Plus className="w-5 h-5 text-blue-600" />}
                 {isEditing ? "Edit Event" : "Add Event"}
               </h2>
@@ -243,7 +243,7 @@ export default function CalendarPage() {
             <div className="flex gap-2 mt-6">
               <button
                 onClick={handleAddOrUpdateEvent}
-                className="bg-blue-600 w-full text-white py-2 rounded-lg font-semibold hover:bg-blue-700 hover:scale-105 transition-all duration-200 shadow-md"
+                className="btn-primary w-full py-2 font-semibold shadow-md"
               >
                 {isEditing ? "Update" : "Save"}
               </button>

@@ -20,7 +20,6 @@ import {
 } from 'lucide-react'
 
 export default function AdminDashboard() {
-
   // Mock data - replace with real data from your API
   const stats = [
     {
@@ -146,7 +145,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">Admin Dashboard</h1>
         <p className="text-gray-600">Welcome back! Heres whats happening with your learning platform.</p>
       </div>
 
@@ -157,7 +156,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
                 <div className="flex items-center mt-2">
                   <TrendingUp className={`w-4 h-4 ${stat.changeType === 'positive' ? 'text-green-500' : 'text-red-500'}`} />
                   <span className={`text-sm font-medium ml-1 ${stat.changeType === 'positive' ? 'text-green-600' : 'text-red-600'}`}>
@@ -180,7 +179,7 @@ export default function AdminDashboard() {
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Recent Activities</h2>
+              <h2 className="text-xl font-semibold text-blue-700">Recent Activities</h2>
               <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
                 View All
               </button>
@@ -192,7 +191,7 @@ export default function AdminDashboard() {
                     {getActivityIcon(activity.type)}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">{activity.title}</p>
+                    <p className="text-sm font-medium text-blue-700">{activity.title}</p>
                     <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
                     <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
                   </div>
@@ -209,9 +208,9 @@ export default function AdminDashboard() {
         <div className="space-y-6">
           {/* Quick Actions */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+            <h2 className="text-xl font-semibold text-blue-700 mb-4">Quick Actions</h2>
             <div className="space-y-3">
-              <button className="w-full flex items-center justify-center space-x-2 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+              <button className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">
                 <Plus className="w-4 h-4" />
                 <span>Create New Course</span>
               </button>
@@ -228,7 +227,7 @@ export default function AdminDashboard() {
 
           {/* System Status */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">System Status</h2>
+            <h2 className="text-xl font-semibold text-blue-700 mb-4">System Status</h2>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Server Status</span>
@@ -260,7 +259,7 @@ export default function AdminDashboard() {
       <div className="mt-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Top Performing Courses</h2>
+            <h2 className="text-xl font-semibold text-blue-700">Top Performing Courses</h2>
             <div className="flex items-center space-x-2">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -280,12 +279,12 @@ export default function AdminDashboard() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-900">Course</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-900">Instructor</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-900">Students</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-900">Revenue</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-900">Rating</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-900">Actions</th>
+                  <th className="text-left py-3 px-4 font-medium text-blue-700">Course</th>
+                  <th className="text-left py-3 px-4 font-medium text-blue-700">Instructor</th>
+                  <th className="text-left py-3 px-4 font-medium text-blue-700">Students</th>
+                  <th className="text-left py-3 px-4 font-medium text-blue-700">Revenue</th>
+                  <th className="text-left py-3 px-4 font-medium text-blue-700">Rating</th>
+                  <th className="text-left py-3 px-4 font-medium text-blue-700">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -293,7 +292,7 @@ export default function AdminDashboard() {
                   <tr key={course.id} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="py-3 px-4">
                       <div>
-                        <p className="font-medium text-gray-900">{course.title}</p>
+                        <p className="font-medium text-blue-700">{course.title}</p>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-gray-600">{course.instructor}</td>

@@ -69,7 +69,7 @@ export default function CertificationsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-1 flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-blue-700 mb-1 flex items-center gap-2">
             <Award className="w-8 h-8 text-yellow-500" /> Certifications
           </h1>
           <p className="text-gray-600">Manage and view all issued certifications</p>
@@ -81,7 +81,7 @@ export default function CertificationsPage() {
           <button className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}`} onClick={() => setViewMode('list')}>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="15" width="18" height="4" rx="1"/></svg>
           </button>
-          <button className="ml-4 flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow">
+          <button className="ml-4 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow">
             <Plus className="w-4 h-4" />
             <span>Issue Certification</span>
           </button>

@@ -215,7 +215,7 @@ export default function AddStudentPage() {
               }`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
                   currentStep >= step.id 
-                    ? 'bg-blue-600 border-blue-600 text-white' 
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 border-blue-600 text-white' 
                     : 'border-gray-300 bg-white'
                 }`}>
                   {currentStep > step.id ? (
@@ -230,7 +230,7 @@ export default function AddStudentPage() {
               </div>
               {index < steps.length - 1 && (
                 <div className={`w-16 h-0.5 mx-4 transition-all duration-300 ${
-                  currentStep > step.id ? 'bg-blue-600' : 'bg-gray-300'
+                  currentStep > step.id ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'bg-gray-300'
                 }`}></div>
               )}
             </div>
@@ -255,14 +255,16 @@ export default function AddStudentPage() {
                   <div className="relative">
                     <div className="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
                       {avatarPreview ? (
-                        <Image src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" />
+                        <div className='relative w-full h-full'>
+                        <Image src={avatarPreview} alt="Avatar preview" fill={true} className="w-full h-full object-cover" />
+                        </div>
                       ) : (
                         <Camera className="w-8 h-8 text-gray-400" />
                       )}
                     </div>
                     <button
                       onClick={() => document.getElementById('avatar-upload')?.click()}
-                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
                     >
                       <Upload className="w-4 h-4" />
                     </button>
@@ -725,7 +727,7 @@ export default function AddStudentPage() {
                   <button
                     onClick={nextStep}
                     disabled={!isStepValid(currentStep)}
-                    className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+                    className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
                   >
                     <span>Next</span>
                     <ArrowRight className="w-4 h-4" />

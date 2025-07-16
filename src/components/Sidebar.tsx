@@ -40,9 +40,10 @@ export default function Sidebar(){
     // const { user } = useAuth();
     const user={
         name:"hello",
-        avatar:"",
-        role:"admin"
+        role:"learner",
+        avatar:""
     }
+    
     const pathname = usePathname()
     const [expandedItems, setExpandedItems] = useState<string[]>([])
 
@@ -85,10 +86,26 @@ export default function Sidebar(){
                     icon: FileText
                 }
             ].filter(child => child.path) // Remove undefined for non-admins
+        },{
+            name:"Instructors",
+            path: user.role === "admin"  ? `${rolePrefix}/instructors` : undefined,
+            icon: Users,
+            children: [
+                {
+                    name: "All Instructors",
+                    path: `${rolePrefix}/instructor`,
+                    icon: Users
+                },
+                {
+                    name: "Add Instructor",
+                    path: user.role === "admin" ? `${rolePrefix}/instructors/addinstructor`:undefined,
+                    icon: UserPlus
+                },
+            ]
         },
         {
             name:"Students",
-            path: user.role === "admin" || "instructor" ? `${rolePrefix}/students` : undefined,
+            path: user.role === "admin" || user.role === "instructor" ? `${rolePrefix}/students` : undefined,
             icon: Users,
             children: [
                 {
@@ -170,18 +187,8 @@ export default function Sidebar(){
     ]
 
     // Filter out items with undefined path (for non-admin roles)
-    let filteredList = list.filter(item => item.path);
-    if (user.role === "admin") {
-      filteredList = list.filter(item => item.path);
-    } else if (user.role === "instructor") {
-      filteredList = list.filter(item =>
-        item.path
-      );
-    } else if (user.role === "learner") {
-      filteredList = list.filter(item =>
-        ["Dashboard", "Courses", "Schedule","Certificates","Payments", "Chat", "Community"].includes(item.name) && item.path
-      );
-    }
+    const filteredList = list.filter(item => item.path);
+    
 
     const toggleExpanded = (itemName: string) => {
         setExpandedItems(prev => 
@@ -297,11 +304,12 @@ export default function Sidebar(){
             {/* User Profile Section */}
             <div className="border-t border-gray-200 p-4">
                 <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                    <div className="relative">
+                    <div className="relative w-10 h-10">
                         <Image
                             src={user?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"}
                             alt={user.name}
-                            className="w-10 h-10 rounded-full object-cover border-2 border-gray-200"
+                            fill={true}
+                            className="rounded-full object-cover border-2 border-gray-200"
                         />
                         <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
                     </div>

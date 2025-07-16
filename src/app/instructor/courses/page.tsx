@@ -98,11 +98,11 @@ export default function InstructorCoursesPage() {
       {/* Header */}
       <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Courses</h1>
+          <h1 className="text-3xl font-bold text-blue-700 mb-2">My Courses</h1>
           <p className="text-gray-600">Manage your courses, track performance, and add new content.</p>
         </div>
         <button
-          className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow transition-colors"
+          className="flex items-center gap-2 px-4 py-2 btn-primary shadow"
           onClick={() => setShowModal(true)}
         >
           <Plus className="w-5 h-5" /> Add Course
@@ -150,7 +150,7 @@ export default function InstructorCoursesPage() {
                 <BookOpen className="w-6 h-6 text-blue-500" />
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="font-semibold text-gray-900 text-lg truncate">{course.title}</h2>
+                <h2 className="font-semibold text-blue-700 text-lg truncate">{course.title}</h2>
                 <span className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium ${statusColors[course.status as keyof typeof statusColors]}`}>{course.status}</span>
               </div>
             </div>
@@ -186,7 +186,7 @@ export default function InstructorCoursesPage() {
               <span className="sr-only">Close</span>
               <XCircle className="w-6 h-6 text-gray-400" />
             </button>
-            <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2">
               <Plus className="w-6 h-6 text-blue-500" /> Add Course
             </h2>
             <form
@@ -229,7 +229,7 @@ export default function InstructorCoursesPage() {
               </div>
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 btn-primary shadow"
               >
                 <Plus className="w-4 h-4" /> Add Course
               </button>

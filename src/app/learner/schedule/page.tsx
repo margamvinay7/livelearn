@@ -153,15 +153,15 @@ export default function SchedulePage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Schedule & Calendar</h1>
+            <h1 className="text-3xl font-bold text-blue-700 mb-2">Schedule & Calendar</h1>
             <p className="text-gray-600">Manage your learning sessions and events</p>
           </div>
           <div className="flex items-center space-x-3">
-            <button className="flex items-center space-x-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-200 transform hover:scale-105">
+            <button className="flex items-center space-x-2 px-4 py-2 btn-primary">
               <Upload className="w-4 h-4" />
               <span>Import Events</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+            <button className="flex items-center space-x-2 px-4 py-2 btn-primary">
               <Plus className="w-4 h-4" />
               <span>Add Event</span>
             </button>
@@ -179,7 +179,7 @@ export default function SchedulePage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
                 <div className="flex items-center mt-2">
                   <TrendingUp className="w-4 h-4 text-green-500" />
                   <span className="text-sm font-medium text-green-600 ml-1">{stat.change}</span>
@@ -199,7 +199,7 @@ export default function SchedulePage() {
       {/* Upcoming Events */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Upcoming Events</h2>
+          <h2 className="text-xl font-semibold text-blue-700 mb-6">Upcoming Events</h2>
           <div className="space-y-4">
             {events
               .filter(event => event.status === 'upcoming')
@@ -219,7 +219,7 @@ export default function SchedulePage() {
                           {event.status}
                         </span>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{event.title}</h3>
+                      <h3 className="font-semibold text-blue-700 mb-1">{event.title}</h3>
                       <p className="text-sm text-gray-600 mb-2">{event.description}</p>
                       <div className="flex items-center space-x-4 text-xs text-gray-500">
                         <div className="flex items-center space-x-1">
@@ -253,17 +253,17 @@ export default function SchedulePage() {
         {/* Quick Actions */}
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+            <h2 className="text-xl font-semibold text-blue-700 mb-4">Quick Actions</h2>
             <div className="space-y-3">
-              <button className="w-full flex items-center justify-center space-x-2 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+              <button className="w-full flex items-center justify-center space-x-2 btn-primary py-3 px-4">
                 <Calendar className="w-4 h-4" />
                 <span>Schedule New Event</span>
               </button>
-              <button className="w-full flex items-center justify-center space-x-2 bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-all duration-200 transform hover:scale-105">
+              <button className="w-full flex items-center justify-center space-x-2 btn-primary py-3 px-4">
                 <Users className="w-4 h-4" />
                 <span>Invite Students</span>
               </button>
-              <button className="w-full flex items-center justify-center space-x-2 bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-all duration-200 transform hover:scale-105">
+              <button className="w-full flex items-center justify-center space-x-2 btn-primary py-3 px-4">
                 <Download className="w-4 h-4" />
                 <span>Export Schedule</span>
               </button>
@@ -272,7 +272,7 @@ export default function SchedulePage() {
 
           {/* Event Statistics */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Event Statistics</h2>
+            <h2 className="text-xl font-semibold text-blue-700 mb-4">Event Statistics</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Workshops</span>
@@ -280,7 +280,7 @@ export default function SchedulePage() {
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div className="bg-blue-500 h-2 rounded-full" style={{ width: '40%' }}></div>
                   </div>
-                  <span className="text-sm font-medium text-gray-900">2</span>
+                  <span className="text-sm font-medium text-blue-700">2</span>
                 </div>
               </div>
               <div className="flex items-center justify-between">
@@ -289,7 +289,7 @@ export default function SchedulePage() {
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div className="bg-green-500 h-2 rounded-full" style={{ width: '60%' }}></div>
                   </div>
-                  <span className="text-sm font-medium text-gray-900">3</span>
+                  <span className="text-sm font-medium text-blue-700">3</span>
                 </div>
               </div>
               <div className="flex items-center justify-between">
@@ -298,7 +298,7 @@ export default function SchedulePage() {
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div className="bg-purple-500 h-2 rounded-full" style={{ width: '20%' }}></div>
                   </div>
-                  <span className="text-sm font-medium text-gray-900">1</span>
+                  <span className="text-sm font-medium text-blue-700">1</span>
                 </div>
               </div>
             </div>

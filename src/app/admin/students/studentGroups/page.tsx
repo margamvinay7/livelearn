@@ -368,11 +368,12 @@ export default function StudentGroupsPage() {
             viewMode === 'list' ? 'flex' : ''
           }`}>
             {/* Group Image */}
-            <div className={viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'}>
+            <div className={`${viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'} relative w-full h-full`}>
               <Image
                 src={group.image}
                 alt={group.name}
-                className="w-full h-full object-cover"
+                fill={true}
+                className="object-cover"
               />
             </div>
 

@@ -71,7 +71,7 @@ export default function LearnerCoursesPage() {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Courses</h1>
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">My Courses</h1>
         <p className="text-gray-600">Browse your enrolled courses, track progress, and continue learning.</p>
       </div>
 
@@ -117,7 +117,7 @@ export default function LearnerCoursesPage() {
                 <BookOpen className="w-6 h-6 text-blue-500" />
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="font-semibold text-gray-900 text-lg truncate">{course.title}</h2>
+                <h2 className="font-semibold text-blue-700 text-lg truncate">{course.title}</h2>
                 <span className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium ${statusColors[course.status as CourseStatus]}`}>{course.status}</span>
               </div>
             </div>

@@ -121,18 +121,18 @@ export default function LearnerAnalyticsPage() {
       {/* Header */}
       <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Analytics</h1>
+          <h1 className="text-3xl font-bold text-blue-700 mb-2">Analytics</h1>
           <p className="text-gray-600">Track your learning progress and achievements.</p>
         </div>
         <div className="flex gap-2">
           <button
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${period === "week" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-blue-50"}`}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${period === "week" ? "btn-primary" : "bg-gray-100 text-gray-700 hover:bg-blue-50"}`}
             onClick={() => setPeriod("week")}
           >
             This Week
           </button>
           <button
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${period === "month" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-blue-50"}`}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${period === "month" ? "btn-primary" : "bg-gray-100 text-gray-700 hover:bg-blue-50"}`}
             onClick={() => setPeriod("month")}
           >
             This Month
@@ -146,7 +146,7 @@ export default function LearnerAnalyticsPage() {
           <div key={stat.title} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex items-center justify-between animate-fade-in" style={{ animationDelay: `${idx * 60}ms` }}>
             <div>
               <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+              <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
             </div>
             <div className={`${stat.color} p-3 rounded-lg`}>
               <stat.icon className="w-6 h-6 text-white" />
@@ -160,7 +160,7 @@ export default function LearnerAnalyticsPage() {
         {/* Progress Trend Chart */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Lessons Completed ({period === "week" ? "This Week" : "This Month"})</h2>
+            <h2 className="text-xl font-semibold text-blue-700">Lessons Completed ({period === "week" ? "This Week" : "This Month"})</h2>
           </div>
           {/* Animated Bar Chart */}
           <div className="flex items-end gap-4 h-48 w-full mt-8">
@@ -180,7 +180,7 @@ export default function LearnerAnalyticsPage() {
         {/* Top Courses */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in-up">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Top Courses</h2>
+            <h2 className="text-xl font-semibold text-blue-700">Top Courses</h2>
           </div>
           <div className="space-y-4">
             {topCourses.map((course, idx) => (
@@ -190,7 +190,7 @@ export default function LearnerAnalyticsPage() {
                     <BookOpen className="w-6 h-6 text-blue-500" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 truncate">{course.title}</h3>
+                    <h3 className="font-semibold text-blue-700 truncate">{course.title}</h3>
                     <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
                       <Star className="w-4 h-4 text-yellow-400 ml-2" /> {course.rating}
                     </div>
@@ -211,14 +211,14 @@ export default function LearnerAnalyticsPage() {
       {/* Recent Activity */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mt-8 animate-fade-in">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Recent Activity</h2>
+          <h2 className="text-xl font-semibold text-blue-700">Recent Activity</h2>
         </div>
         <div className="space-y-4">
           {recentActivity.map((activity, idx) => (
             <div key={activity.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors animate-fade-in-up" style={{ animationDelay: `${idx * 40}ms` }}>
               <div className="flex-shrink-0 mt-1">{getActivityIcon(activity.type)}</div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900">{activity.title}</p>
+                <p className="text-sm font-medium text-blue-700">{activity.title}</p>
                 <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
                 <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
               </div>
