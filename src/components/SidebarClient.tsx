@@ -2,15 +2,15 @@
 "use client";
 
 import Sidebar from "./Sidebar";
-import { useAuth } from "@/context/AuthContext";
+import { useGetUserQuery } from "@/store/api/authApi";
 
 export default function SidebarClient() {
-  const { user } = useAuth(); // Safe in client
+  const { data: user } = useGetUserQuery();
 
   if (!user) return null;
 
   return (
-    <div className="w-64 shrink-0">
+    <div className="w-64 shrink-0 transition-all duration-300">
       <Sidebar />
     </div>
   );

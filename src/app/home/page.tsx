@@ -2,8 +2,22 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { GraduationCap, BookOpen, User, Info, Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useGetUserQuery } from "@/store/api/authApi";
 
 export default function HomePage() {
+const {data:user,isLoading:loading}=useGetUserQuery()
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      if (user.role === "ADMIN") router.replace("/admin/dashboard");
+      else if (user.role === "INSTRUCTOR") router.replace("/instructor/dashboard");
+      else if (user.role === "STUDENT") router.replace("/learner/dashboard");
+    }
+  }, [user, loading, router]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-white flex flex-col">
       {/* Navigation Bar */}

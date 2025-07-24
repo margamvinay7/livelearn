@@ -23,7 +23,22 @@ Shield,
 } from 'lucide-react'
 import Image from 'next/image'
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useGetUserQuery, useRegisterMutation } from '@/store/api/authApi';
+
 export default function Signup() {
+ const {data:user,isLoading:loading}=useGetUserQuery()
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      if (user.role === "ADMIN") router.replace("/admin/dashboard");
+      else if (user.role === "INSTRUCTOR") router.replace("/instructor/dashboard");
+      else if (user.role === "STUDENT") router.replace("/learner/dashboard");
+    }
+  }, [user, loading, router]);
+
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -159,13 +174,24 @@ export default function Signup() {
     }
   }
 
+  const [register, { error, isSuccess }] = useRegisterMutation();
+
   const handleSubmit = async () => {
-    setIsSubmitting(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setIsSubmitting(false)
-    // Handle success - redirect or show success message
-  }
+    setIsSubmitting(true);
+    try {
+      await register({
+        name: formData.firstName + ' ' + formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        role: 'STUDENT',
+        // Add other fields as needed
+      }).unwrap();
+      router.push('/signin');
+    } catch{
+      // error handled by RTK Query
+    }
+    setIsSubmitting(false);
+  };
 
   const isStepValid = (step: number) => {
     switch (step) {
@@ -708,42 +734,46 @@ export default function Signup() {
 
           {/* Form Actions */}
           <div className="px-8 py-6 bg-gray-50 border-t border-gray-200">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={prevStep}
-                disabled={currentStep === 1}
-                className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Previous</span>
-              </button>
+            <form onSubmit={e => { e.preventDefault(); handleSubmit(); }} className="flex flex-col gap-6">
+              {error && <div className="text-red-500 mb-4">Registration failed. Please try again.</div>}
+              {isSuccess && <div className="text-green-600 mb-4">Registration successful! Please sign in.</div>}
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={prevStep}
+                  disabled={currentStep === 1}
+                  className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Previous</span>
+                </button>
 
-              <div className="flex items-center space-x-3">
-                {currentStep < steps.length ? (
-                  <button
-                    onClick={nextStep}
-                    disabled={!isStepValid(currentStep)}
-                    className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <span>Next</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleSubmit}
-                    disabled={isSubmitting || !isStepValid(currentStep)}
-                    className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <Save className="w-4 h-4" />
-                    )}
-                    <span>{isSubmitting ? 'Creating Account...' : 'Create Student Account'}</span>
-                  </button>
-                )}
+                <div className="flex items-center space-x-3">
+                  {currentStep < steps.length ? (
+                    <button
+                      onClick={nextStep}
+                      disabled={!isStepValid(currentStep)}
+                      className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <span>Next</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || !isStepValid(currentStep)}
+                      className="flex items-center space-x-2 px-6 py-3 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Save className="w-4 h-4" />
+                      )}
+                      <span>{isSubmitting ? 'Creating Account...' : 'Create Student Account'}</span>
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

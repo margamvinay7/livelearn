@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { 
   Plus, 
   Search, 
@@ -24,136 +24,40 @@ import {
   
 } from 'lucide-react'
 import Image from 'next/image'
+import { useGetAllStudentsQuery } from '@/store/api/studentApi'
+
 
 export default function StudentsPage() {
+
+  const { data: studentProfiles = [] } = useGetAllStudentsQuery();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState('name')
 
-  // Mock data - replace with real data from your API
-  const students = [
-    {
-      id: 1,
-      name: "Sarah Wilson",
-      email: "sarah.wilson@example.com",
-      phone: "+1 (555) 123-4567",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
-      status: "active",
+  const students = useMemo(() => {
+    if (!studentProfiles) return [];
+    return studentProfiles.map((profile, index) => ({
+      id: profile.id,
+      name: profile.user.name,
+      email: profile.user.email,
+      phone: profile.phone || "+1 (555) 000-0000",
+      avatar: profile.avatar || `https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face`,
+      status: ["active", "inactive", "pending"][index % 3],
       enrollmentDate: "2024-01-15",
       courses: 5,
       completedCourses: 3,
       progress: 85,
       grade: "A+",
-      location: "New York, NY",
+      location: profile.city && profile.state ? `${profile.city}, ${profile.state}` : "New York, NY",
       lastActive: "2 hours ago",
       totalHours: 124,
       certificates: 2,
       achievements: ["Top Performer", "Perfect Attendance"],
       interests: ["Data Science", "Machine Learning", "Python"],
       notes: "Excellent student with strong analytical skills"
-    },
-    {
-      id: 2,
-      name: "Mike Johnson",
-      email: "mike.johnson@example.com",
-      phone: "+1 (555) 234-5678",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      status: "active",
-      enrollmentDate: "2024-01-10",
-      courses: 4,
-      completedCourses: 2,
-      progress: 72,
-      grade: "A-",
-      location: "Los Angeles, CA",
-      lastActive: "1 day ago",
-      totalHours: 89,
-      certificates: 1,
-      achievements: ["Quick Learner"],
-      interests: ["Web Development", "React", "JavaScript"],
-      notes: "Shows great potential in frontend development"
-    },
-    {
-      id: 3,
-      name: "Emily Brown",
-      email: "emily.brown@example.com",
-      phone: "+1 (555) 345-6789",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      status: "inactive",
-      enrollmentDate: "2023-12-20",
-      courses: 3,
-      completedCourses: 1,
-      progress: 45,
-      grade: "B+",
-      location: "Chicago, IL",
-      lastActive: "1 week ago",
-      totalHours: 56,
-      certificates: 0,
-      achievements: [],
-      interests: ["UI/UX Design", "Figma", "Adobe Creative Suite"],
-      notes: "Creative designer, needs more engagement"
-    },
-    {
-      id: 4,
-      name: "David Chen",
-      email: "david.chen@example.com",
-      phone: "+1 (555) 456-7890",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      status: "active",
-      enrollmentDate: "2024-01-05",
-      courses: 6,
-      completedCourses: 4,
-      progress: 92,
-      grade: "A+",
-      location: "San Francisco, CA",
-      lastActive: "30 minutes ago",
-      totalHours: 156,
-      certificates: 3,
-      achievements: ["Top Performer", "Perfect Attendance", "Course Creator"],
-      interests: ["Full Stack Development", "Node.js", "MongoDB"],
-      notes: "Exceptional student, mentor material"
-    },
-    {
-      id: 5,
-      name: "Lisa Anderson",
-      email: "lisa.anderson@example.com",
-      phone: "+1 (555) 567-8901",
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
-      status: "active",
-      enrollmentDate: "2024-01-12",
-      courses: 4,
-      completedCourses: 2,
-      progress: 68,
-      grade: "B+",
-      location: "Austin, TX",
-      lastActive: "3 hours ago",
-      totalHours: 78,
-      certificates: 1,
-      achievements: ["Consistent Learner"],
-      interests: ["Digital Marketing", "SEO", "Social Media"],
-      notes: "Marketing enthusiast, good communication skills"
-    },
-    {
-      id: 6,
-      name: "Alex Thompson",
-      email: "alex.thompson@example.com",
-      phone: "+1 (555) 678-9012",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      status: "pending",
-      enrollmentDate: "2024-01-18",
-      courses: 2,
-      completedCourses: 0,
-      progress: 15,
-      grade: "N/A",
-      location: "Seattle, WA",
-      lastActive: "2 days ago",
-      totalHours: 12,
-      certificates: 0,
-      achievements: [],
-      interests: ["Cybersecurity", "Ethical Hacking", "Network Security"],
-      notes: "New student, needs orientation"
-    }
-  ]
+    }));
+  }, [studentProfiles]);
 
   const stats = [
     {
@@ -166,7 +70,7 @@ export default function StudentsPage() {
     },
     {
       title: "Active Students",
-      value: students.filter(s => s.status === 'active').length.toString(),
+      value: students.filter(s => s?.status === 'active').length.toString(),
       change: "+8%",
       changeType: "positive",
       icon: User,
@@ -356,7 +260,7 @@ export default function StudentsPage() {
                 <div className="relative w-16 h-16">
                   <Image
                     src={student.avatar}
-                    alt={student.name}
+                    alt={student.name || "student"}
                     fill={true}
                     className="rounded-full object-cover border-4 border-gray-100"
                   />

@@ -6,40 +6,32 @@ import {
   User,
   CheckCircle,
   AlertCircle,
-  Upload,
-  X,
   Save,
   Eye,
   EyeOff,
   Users,
-  Camera,
   Shield,
   Check,
   Loader2
 } from 'lucide-react'
-import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useCreateInstructorMutation } from '@/store/api/instructorApi'
+
 
 export default function AddInstructorPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+  const [createInstructor, { error, isSuccess }] = useCreateInstructorMutation();
 
   const [formData, setFormData] = useState({
-    // Personal Information
+    // User Information
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
-    dateOfBirth: '',
-    gender: '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    country: '',
 
-    // Professional Information
+    // Instructor Profile Information
     department: '',
     designation: '',
     experience: '',
@@ -47,14 +39,8 @@ export default function AddInstructorPage() {
     bio: '',
 
     // Account Information
-    username: '',
     password: '',
     confirmPassword: '',
-    avatar: null as File | null,
-
-    // Additional Information
-    notes: '',
-    status: 'pending'
   })
 
   const steps = [
@@ -103,11 +89,8 @@ export default function AddInstructorPage() {
     'IoT'
   ]
 
-  const handleInputChange = (field: string, value: string | unknown) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
+  const handleInputChange = (field: string, value: string | string[]) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
   }
 
   const handleSkillToggle = (skill: string) => {
@@ -117,23 +100,6 @@ export default function AddInstructorPage() {
         ? prev.skills.filter(i => i !== skill)
         : [...prev.skills, skill]
     }))
-  }
-
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      setFormData(prev => ({ ...prev, avatar: file }))
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        setAvatarPreview(e.target?.result as string)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
-  const removeAvatar = () => {
-    setFormData(prev => ({ ...prev, avatar: null }))
-    setAvatarPreview(null)
   }
 
   const nextStep = () => {
@@ -149,27 +115,60 @@ export default function AddInstructorPage() {
   }
 
   const handleSubmit = async () => {
-    setIsSubmitting(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setIsSubmitting(false)
-    // Handle success - redirect or show success message
-  }
+    setIsSubmitting(true);
+    try {
+      const submissionData = {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        password: formData.password,
+        bio: formData.bio,
+        department: formData.department,
+        designation: formData.designation,
+        experience: formData.experience,
+        skills: formData.skills,
+      };
+
+      await createInstructor(submissionData).unwrap();
+      
+      setTimeout(() => {
+        router.push('/admin/instructors');
+      }, 1500);
+
+    } catch (err) {
+      console.error('Failed to create instructor:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const isStepValid = (step: number) => {
     switch (step) {
       case 1:
-        return formData.firstName && formData.lastName && formData.email && formData.phone
+        return formData.firstName && formData.lastName && formData.email;
       case 2:
-        return formData.department && formData.designation && formData.skills.length > 0
+        return formData.department && formData.designation && formData.skills.length > 0;
       case 3:
-        return formData.username && formData.password && formData.password === formData.confirmPassword
+        return formData.password && formData.password.length >= 8 && formData.password === formData.confirmPassword;
       case 4:
-        return true
+        return true;
       default:
-        return false
+        return false;
     }
   }
+
+  function getErrorMessage(error: unknown): string | null {
+    if (!error) return null;
+    if (typeof error === 'string') return error;
+    if ('status' in (error as {status:number}) && 'data' in (error as {data:unknown})) {
+      const errorData = (error as {data:unknown}).data as {message:string};
+      if (errorData && typeof errorData.message === 'string') {
+        return errorData.message;
+    }
+  }
+    return 'An unexpected error occurred. Please try again.';
+  }
+
+  const errorMsg = getErrorMessage(error);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -230,44 +229,6 @@ export default function AddInstructorPage() {
                 <p className="text-gray-600">Please provide the instructors basic personal details</p>
               </div>
 
-              {/* Avatar Upload */}
-              <div className="flex items-center space-x-6">
-                <div className="relative">
-                  <div className="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
-                    {avatarPreview ? (
-                      <Image src={avatarPreview} alt="Avatar preview" className="w-full h-full object-cover" />
-                    ) : (
-                      <Camera className="w-8 h-8 text-gray-400" />
-                    )}
-                  </div>
-                  <button
-                    onClick={() => document.getElementById('avatar-upload')?.click()}
-                    className="absolute -bottom-1 -right-1 w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
-                  >
-                    <Upload className="w-4 h-4" />
-                  </button>
-                  {avatarPreview && (
-                    <button
-                      onClick={removeAvatar}
-                      className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  )}
-                </div>
-                <div>
-                  <h3 className="font-medium text-blue-700 mb-1">Profile Picture</h3>
-                  <p className="text-sm text-gray-600">Upload a clear photo of the instructor</p>
-                  <input
-                    id="avatar-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleAvatarChange}
-                    className="hidden"
-                  />
-                </div>
-              </div>
-
               {/* Name Fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -292,8 +253,7 @@ export default function AddInstructorPage() {
                 </div>
               </div>
 
-              {/* Contact Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
                   <input
@@ -303,97 +263,6 @@ export default function AddInstructorPage() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="Enter email address"
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter phone number"
-                  />
-                </div>
-              </div>
-
-              {/* Additional Personal Info */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
-                  <input
-                    type="date"
-                    value={formData.dateOfBirth}
-                    onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
-                  <select
-                    value={formData.gender}
-                    onChange={(e) => handleInputChange('gender', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  >
-                    <option value="">Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
-                  <select
-                    value={formData.country}
-                    onChange={(e) => handleInputChange('country', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  >
-                    <option value="">Select country</option>
-                    <option value="us">United States</option>
-                    <option value="ca">Canada</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="au">Australia</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
-                  <input
-                    type="text"
-                    value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter street address"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
-                  <input
-                    type="text"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange('city', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter city"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">State/Province</label>
-                  <input
-                    type="text"
-                    value={formData.state}
-                    onChange={(e) => handleInputChange('state', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter state"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">ZIP/Postal Code</label>
-                  <input
-                    type="text"
-                    value={formData.zipCode}
-                    onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter ZIP code"
-                  />
-                </div>
               </div>
             </div>
           )}
@@ -491,19 +360,6 @@ export default function AddInstructorPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Username *</label>
-                  <input
-                    type="text"
-                    value={formData.username}
-                    onChange={(e) => handleInputChange('username', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter username"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
                   <div className="relative">
                     <input
@@ -572,8 +428,6 @@ export default function AddInstructorPage() {
                     <div className="space-y-2 text-sm">
                       <p><span className="font-medium">Name:</span> {formData.firstName} {formData.lastName}</p>
                       <p><span className="font-medium">Email:</span> {formData.email}</p>
-                      <p><span className="font-medium">Phone:</span> {formData.phone}</p>
-                      <p><span className="font-medium">Location:</span> {formData.city}, {formData.state}</p>
                     </div>
                   </div>
                   <div>
@@ -582,7 +436,6 @@ export default function AddInstructorPage() {
                       <p><span className="font-medium">Department:</span> {formData.department}</p>
                       <p><span className="font-medium">Designation:</span> {formData.designation}</p>
                       <p><span className="font-medium">Skills:</span> {formData.skills.join(', ')}</p>
-                      <p><span className="font-medium">Username:</span> {formData.username}</p>
                     </div>
                   </div>
                 </div>
@@ -626,6 +479,10 @@ export default function AddInstructorPage() {
                 <span>{isSubmitting ? 'Creating Account...' : 'Create Instructor Account'}</span>
               </button>
             )}
+            {errorMsg && (
+              <div className="text-red-500 text-center mb-2">{errorMsg}</div>
+            )}
+            {isSuccess && <div className="text-green-600 mt-4">Instructor created successfully! Redirecting...</div>}
           </div>
         </div>
       </div>

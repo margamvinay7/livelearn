@@ -28,7 +28,11 @@ import {
   
 } from 'lucide-react'
 import Image from "next/image"
-// import { useAuth } from "@/context/AuthContext";
+
+import { useRouter } from 'next/navigation';
+import { useLogoutMutation,useGetUserQuery } from "@/store/api/authApi"
+import { useDispatch } from 'react-redux';
+import { authApi } from '@/store/api/authApi';
 
 interface Children {
     name:string,
@@ -37,12 +41,15 @@ interface Children {
 }
 
 export default function Sidebar(){
-    // const { user } = useAuth();
-    const user={
-        name:"hello",
-        role:"learner",
-        avatar:""
-    }
+    const { data: user} = useGetUserQuery();
+    const [logout]=useLogoutMutation()
+    const router = useRouter();
+    const dispatch = useDispatch();
+    // const user={
+    //     name:"hello",
+    //     role:"learner",
+    //     avatar:""
+    // }
     
     const pathname = usePathname()
     const [expandedItems, setExpandedItems] = useState<string[]>([])
@@ -51,7 +58,7 @@ export default function Sidebar(){
     
 
     // Role-based path prefix
-    const rolePrefix = user.role === "admin" ? "/admin" : user.role === "instructor" ? "/instructor" : "/learner";
+    const rolePrefix = user?.role === "ADMIN" ? "/admin" : user?.role === "INSTRUCTOR" ? "/instructor" : "/learner";
 
     // List with role-based paths
     const list=[
@@ -77,35 +84,35 @@ export default function Sidebar(){
                 },
                 {
                     name: "Create Course",
-                    path: user.role === "admin" ? `${rolePrefix}/courses/createcourse` : undefined,
+                    path: user.role === "ADMIN" ? `${rolePrefix}/courses/createcourse` : undefined,
                     icon: Plus
                 },
                 {
                     name: "Categories",
-                    path: user.role === "admin" ? `${rolePrefix}/courses/categories` : undefined,
+                    path: user.role === "ADMIN" ? `${rolePrefix}/courses/categories` : undefined,
                     icon: FileText
                 }
             ].filter(child => child.path) // Remove undefined for non-admins
         },{
             name:"Instructors",
-            path: user.role === "admin"  ? `${rolePrefix}/instructors` : undefined,
+            path: user.role === "ADMIN"  ? `${rolePrefix}/instructors` : undefined,
             icon: Users,
             children: [
                 {
                     name: "All Instructors",
-                    path: `${rolePrefix}/instructor`,
+                    path: `${rolePrefix}/instructors`,
                     icon: Users
                 },
                 {
                     name: "Add Instructor",
-                    path: user.role === "admin" ? `${rolePrefix}/instructors/addinstructor`:undefined,
+                    path: user.role === "ADMIN" ? `${rolePrefix}/instructors/addinstructor`:undefined,
                     icon: UserPlus
                 },
             ]
         },
         {
             name:"Students",
-            path: user.role === "admin" || user.role === "instructor" ? `${rolePrefix}/students` : undefined,
+            path: user.role === "ADMIN" || user.role === "INSTRUCTOR" ? `${rolePrefix}/students` : undefined,
             icon: Users,
             children: [
                 {
@@ -115,7 +122,7 @@ export default function Sidebar(){
                 },
                 {
                     name: "Add Student",
-                    path: user.role === "admin" ? `${rolePrefix}/students/addstudent`:undefined,
+                    path: user.role === "ADMIN" ? `${rolePrefix}/students/addstudent`:undefined,
                     icon: UserPlus
                 },
                 {
@@ -142,7 +149,7 @@ export default function Sidebar(){
         //         },
         //         {
         //             name: "Add Event",
-        //             path: user.role === "admin" ? `${rolePrefix}/schedule/addevent` : undefined,
+        //             path: user.role === "ADMIN" ? `${rolePrefix}/schedule/addevent` : undefined,
         //             icon: Plus
         //         },
         //     ].filter(child => child.path)
@@ -164,7 +171,7 @@ export default function Sidebar(){
                 },
                 {
                     name:"Issue Certificate",
-                    path: user.role === "admin" ? `${rolePrefix}/certificates/issuecertificates`:undefined,
+                    path: user.role === "ADMIN" ? `${rolePrefix}/certificates/issuecertificates`:undefined,
                     icon: Signature,
                 },
             ].filter(child=>child.path)
@@ -188,6 +195,12 @@ export default function Sidebar(){
 
     // Filter out items with undefined path (for non-admin roles)
     const filteredList = list.filter(item => item.path);
+
+    const handleLogout=async () => {
+        await logout();
+        dispatch(authApi.util.resetApiState());
+        router.push('/signin');
+      }
     
 
     const toggleExpanded = (itemName: string) => {
@@ -334,9 +347,12 @@ export default function Sidebar(){
                             <User className="w-4 h-4" />
                             <span>Profile</span>
                         </button>
-                        <button className="flex items-center space-x-2 text-sm text-red-600 hover:text-red-700 transition-colors">
-                            <LogOut className="w-4 h-4" />
-                            <span>Logout</span>
+                        <button
+                          className="flex items-center space-x-2 text-sm text-red-600 hover:text-red-700 transition-colors"
+                          onClick={handleLogout}
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Logout</span>
                         </button>
                     </div>
                 </div>

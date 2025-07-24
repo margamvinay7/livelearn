@@ -265,7 +265,7 @@ export default function StudentGroupsPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Groups</h1>
+            <h1 className="text-3xl font-bold text-blue-700 mb-2">Student Groups</h1>
             <p className="text-gray-600">Manage and organize student groups for collaborative learning</p>
           </div>
           <div className="flex items-center space-x-3">
@@ -275,7 +275,7 @@ export default function StudentGroupsPage() {
             </button>
             <button 
               onClick={() => setShowCreateModal(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105"
+              className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 transform hover:scale-105"
             >
               <Plus className="w-4 h-4" />
               <span>Create Group</span>
@@ -294,7 +294,7 @@ export default function StudentGroupsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-2xl font-bold text-blue-700 mt-1">{stat.value}</p>
                 <div className="flex items-center mt-2">
                   <TrendingUp className="w-4 h-4 text-green-500" />
                   <span className="text-sm font-medium text-green-600 ml-1">{stat.change}</span>
@@ -381,7 +381,7 @@ export default function StudentGroupsPage() {
             <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{group.name}</h3>
+                  <h3 className="text-lg font-semibold text-blue-700 mb-1">{group.name}</h3>
                   <p className="text-sm text-gray-600 mb-2">{group.description}</p>
                 </div>
                 <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
@@ -469,13 +469,13 @@ export default function StudentGroupsPage() {
           Showing 1-6 of {groups.length} groups
         </div>
         <div className="flex items-center space-x-2">
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed">
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
             Previous
           </button>
-          <button className="px-3 py-2 text-sm bg-blue-600 text-white rounded-lg">1</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">2</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">3</button>
-          <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">
+          <button className="px-3 py-2 text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">1</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">2</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">3</button>
+          <button className="px-3 py-2 text-sm text-gray-600 hover:text-blue-700">
             Next
           </button>
         </div>
@@ -487,7 +487,7 @@ export default function StudentGroupsPage() {
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full mx-4 transform transition-all duration-300">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">Create New Group</h2>
+                <h2 className="text-2xl font-bold text-blue-700">Create New Group</h2>
                 <button 
                   onClick={() => setShowCreateModal(false)}
                   className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
@@ -547,7 +547,7 @@ export default function StudentGroupsPage() {
                   >
                     Cancel
                   </button>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     Create Group
                   </button>
                 </div>

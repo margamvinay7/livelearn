@@ -26,12 +26,19 @@ import {
  
 
 } from 'lucide-react'
-import Image from 'next/image'
+// import Image from 'next/image'
+// import { useGetAllCoursesQuery,Course } from '@/store/api/courseApi';
+
+import Link from 'next/link';
 
 export default function CoursesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+
+  // Fetch courses from backend
+  // const { data, isLoading, error } = useGetAllCoursesQuery({});
+  // const courses = data?.data || [];
 
   // Mock data - replace with real data from your API
   const courses = [
@@ -188,16 +195,16 @@ export default function CoursesPage() {
     }
   ]
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'published':
-        return <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Published</span>
-      case 'draft':
-        return <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Draft</span>
-      default:
-        return <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Unknown</span>
-    }
-  }
+  // const getStatusBadge = (status: string) => {
+  //   switch (status) {
+  //     case 'published':
+  //       return <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Published</span>
+  //     case 'draft':
+  //       return <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Draft</span>
+  //     default:
+  //       return <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Unknown</span>
+  //   }
+  // }
 
   const getLevelBadge = (level: string) => {
     switch (level) {
@@ -311,18 +318,19 @@ export default function CoursesPage() {
       {/* Courses Grid/List */}
       <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}>
         {courses.map((course) => (
-          <div key={course.id} className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow ${
+          <Link href={`/learner/courses/cmdfi88wc0001tt5osrj02nmn`} key={course.id}>
+          <div  className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow ${
             viewMode === 'list' ? 'flex' : ''
           }`}>
             {/* Course Image */}
-            <div className={`${viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'} relative `}>
+            {/* <div className={`${viewMode === 'list' ? 'w-48 h-32 flex-shrink-0' : 'h-48'} relative `}>
               <Image
                 src={course.image}
                 alt={course.title}
                 fill={true}
                 className="object-cover"
               />
-            </div>
+            </div> */}
 
             {/* Course Content */}
             <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
@@ -339,12 +347,12 @@ export default function CoursesPage() {
               {/* Course Meta */}
               <div className="flex items-center space-x-2 mb-3">
                 <User className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-600">{course.instructor}</span>
+                {/* <span className="text-sm text-gray-600">{course.instructo}</span> */}
               </div>
 
               {/* Badges */}
               <div className="flex items-center space-x-2 mb-4">
-                {getStatusBadge(course.status)}
+                {/* {getStatusBadge(course.status)} */}
                 {getLevelBadge(course.level)}
               </div>
 
@@ -356,11 +364,11 @@ export default function CoursesPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Users className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm text-gray-600">{course.students} students</span>
+                  {/* <span className="text-sm text-gray-600">{course.students} students</span> */}
                 </div>
                 <div className="flex items-center space-x-2">
                   <Star className="w-4 h-4 text-yellow-500" />
-                  <span className="text-sm text-gray-600">{course.rating} ({course.reviews})</span>
+                  {/* <span className="text-sm text-gray-600">{course.rating} ({course.reviews})</span> */}
                 </div>
                 <div className="flex items-center space-x-2">
                   <DollarSign className="w-4 h-4 text-green-500" />
@@ -372,13 +380,13 @@ export default function CoursesPage() {
               <div className="mb-4">
                 <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
                   <span>Completion Rate</span>
-                  <span>{course.completionRate}%</span>
+                  {/* <span>{course.completionRate}%</span> */}
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
+                  {/* <div 
                     className="bg-green-500 h-2 rounded-full transition-all duration-300" 
                     style={{ width: `${course.completionRate}%` }}
-                  ></div>
+                  ></div> */}
                 </div>
               </div>
 
@@ -395,12 +403,13 @@ export default function CoursesPage() {
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="text-xs text-gray-500">
+                {/* <div className="text-xs text-gray-500">
                   Updated {course.lastUpdated}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
+          </Link>
         ))}
       </div>
 

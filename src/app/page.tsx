@@ -1,19 +1,22 @@
-"use client";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+'use client'
 
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
+/**
+ * The root page now only serves to redirect to the public home page.
+ * All authentication-based routing is now handled by the middleware.
+ */
 export default function IndexPage() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    if (loading) return;
-    if (!user) router.replace("/home");
-    else if (user.role === "admin") router.replace("/admin/dashboard");
-    else if (user.role === "instructor") router.replace("/instructor/dashboard");
-    else if (user.role === "learner") router.replace("/learner/dashboard");
-  }, [user, loading, router]);
+    router.replace('/home')
+  }, [router])
 
-  return null;
+  return (
+    <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
+      <div className="text-lg font-semibold text-gray-700">Loading...</div>
+    </div>
+  )
 }

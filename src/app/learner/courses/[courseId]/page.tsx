@@ -194,7 +194,8 @@ useEffect(() => {
     
   
     playerRef.current.src({
-      src: currentChapter.videoUrl,
+      // src: currentChapter.videoUrl,
+      src: "http://localhost:8001/uploads/courses/cmdfj78bg0001tt8s4vvt7z93/master.m3u8",
       type: "application/x-mpegURL",
     });
 

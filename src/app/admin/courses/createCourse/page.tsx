@@ -2,7 +2,6 @@
 import { useState } from "react";
 import {
   BookOpen,
-
   Clock,
   DollarSign,
   Upload,
@@ -10,12 +9,10 @@ import {
   Save,
   Loader2,
   Image as ImageIcon,
-  Edit,
-  Trash2,
-  Video,
-  Plus
 } from "lucide-react";
 import Image from "next/image";
+import { useCreateCourseMutation } from "@/store/api/courseApi"; // Import the mutation
+import { useRouter } from 'next/navigation';
 
 const categories = [
   "Programming",
@@ -29,30 +26,27 @@ const levels = ["Beginner", "Intermediate", "Advanced"];
 const statuses = ["Draft", "Published"];
 
 export default function CreateCoursePage() {
+  const router = useRouter();
+  const [createCourse, { isLoading: isSubmitting }] = useCreateCourseMutation(); // Use the mutation
+
   const [form, setForm] = useState({
     title: "",
     category: "",
     level: "",
-    instructor: "",
+    instructor: "", // This will be the instructor's ID
     duration: "",
     price: "",
     description: "",
     poster: null as File | null,
     posterPreview: null as string | null,
     status: "Draft",
-    chapters: [] as Array<{
-      title: string;
-      video: File | null;
-      videoPreview: string | null;
-    }>
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [editingChapterIndex, setEditingChapterIndex] = useState<number | null>(null);
-  const [chapterForm, setChapterForm] = useState({
-    title: "",
-    video: null as File | null,
-    videoPreview: null as string | null
-  });
+  // const [editingChapterIndex, setEditingChapterIndex] = useState<number | null>(null);
+  // const [chapterForm, setChapterForm] = useState({
+  //   title: "",
+  //   video: null as File | null,
+  //   videoPreview: null as string | null
+  // });
 
   // Course poster upload
   const handlePosterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,44 +63,44 @@ export default function CreateCoursePage() {
   };
 
   // Chapter video upload
-  const handleChapterVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setChapterForm((prev) => ({ ...prev, video: file }));
-      const reader = new FileReader();
-      reader.onload = (ev) => setChapterForm((prev) => ({ ...prev, videoPreview: ev.target?.result as string }));
-      reader.readAsDataURL(file);
-    }
-  };
-  const removeChapterVideo = () => {
-    setChapterForm((prev) => ({ ...prev, video: null, videoPreview: null }));
-  };
+  // const handleChapterVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     setChapterForm((prev) => ({ ...prev, video: file }));
+  //     const reader = new FileReader();
+  //     reader.onload = (ev) => setChapterForm((prev) => ({ ...prev, videoPreview: ev.target?.result as string }));
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+  // const removeChapterVideo = () => {
+  //   setChapterForm((prev) => ({ ...prev, video: null, videoPreview: null }));
+  // };
 
   // Add or edit chapter
-  const handleAddOrEditChapter = () => {
-    if (!chapterForm.title || !chapterForm.video) return;
-    if (editingChapterIndex !== null) {
-      // Edit
-      setForm((prev) => {
-        const chapters = [...prev.chapters];
-        chapters[editingChapterIndex] = { ...chapterForm };
-        return { ...prev, chapters };
-      });
-      setEditingChapterIndex(null);
-    } else {
-      // Add
-      setForm((prev) => ({ ...prev, chapters: [...prev.chapters, { ...chapterForm }] }));
-    }
-    setChapterForm({ title: "", video: null, videoPreview: null });
-  };
-  const handleEditChapter = (idx: number) => {
-    setEditingChapterIndex(idx);
-    setChapterForm({ ...form.chapters[idx] });
-  };
-  const handleDeleteChapter = (idx: number) => {
-    setForm((prev) => ({ ...prev, chapters: prev.chapters.filter((_, i) => i !== idx) }));
-    if (editingChapterIndex === idx) setEditingChapterIndex(null);
-  };
+  // const handleAddOrEditChapter = () => {
+  //   if (!chapterForm.title || !chapterForm.video) return;
+  //   if (editingChapterIndex !== null) {
+  //     // Edit
+  //     setForm((prev) => {
+  //       const chapters = [...prev.chapters];
+  //       chapters[editingChapterIndex] = { ...chapterForm };
+  //       return { ...prev, chapters };
+  //     });
+  //     setEditingChapterIndex(null);
+  //   } else {
+  //     // Add
+  //     setForm((prev) => ({ ...prev, chapters: [...prev.chapters, { ...chapterForm }] }));
+  //   }
+  //   setChapterForm({ title: "", video: null, videoPreview: null });
+  // };
+  // const handleEditChapter = (idx: number) => {
+  //   setEditingChapterIndex(idx);
+  //   setChapterForm({ ...form.chapters[idx] });
+  // };
+  // const handleDeleteChapter = (idx: number) => {
+  //   setForm((prev) => ({ ...prev, chapters: prev.chapters.filter((_, i) => i !== idx) }));
+  //   if (editingChapterIndex === idx) setEditingChapterIndex(null);
+  // };
 
   // Course field change
   const handleChange = (field: string, value: string | unknown) => {
@@ -143,11 +137,37 @@ export default function CreateCoursePage() {
   // Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((res) => setTimeout(res, 1500));
-    setIsSubmitting(false);
-    alert("Course created/updated (simulation)");
+    try {
+      const formData = new FormData();
+      formData.append('title', form.title);
+      formData.append('description', form.description);
+      formData.append('price', form.price);
+      formData.append('instructorId', form.instructor);
+      // Always append categories as array
+      if (Array.isArray(form.category)) {
+        form.category.forEach(cat => formData.append('categories[]', cat));
+      } else if (form.category) {
+        formData.append('categories[]', form.category);
+      }
+      formData.append('isPublished', form.status === 'Published' ? 'true' : 'false');
+      if (form.poster) {
+        formData.append('poster', form.poster);
+      }
+      // form.chapters.forEach((chapter, index) => {
+      //   formData.append(`chapters[${index}][title]`, chapter.title);
+      //   formData.append(`chapters[${index}][position]`, String(index + 1));
+      //   if (chapter.video) {
+      //     formData.append(`chapters[${index}][video]`, chapter.video);
+      //   }
+      // });
+
+      const result = await createCourse(formData).unwrap();
+      alert("Course created successfully!");
+      router.push(`/admin/courses/addchapter?courseId=${result.course.id}`);
+    } catch (error) {
+      console.error("Failed to create course:", error);
+      alert("Failed to create course. See console for details.");
+    }
   };
 
   return (
@@ -160,22 +180,6 @@ export default function CreateCoursePage() {
           </h1>
           <p className="text-gray-600">Design and launch a new course for your learners</p>
         </div>
-        {/* <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={handleEditCourse}
-            className="flex items-center gap-1 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition-colors"
-          >
-            <Edit className="w-4 h-4" /> Edit
-          </button>
-          <button
-            type="button"
-            onClick={handleDeleteCourse}
-            className="flex items-center gap-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-          >
-            <Trash2 className="w-4 h-4" /> Delete
-          </button>
-        </div> */}
       </div>
 
       {/* Form Card */}
@@ -191,7 +195,7 @@ export default function CreateCoursePage() {
                 {form.posterPreview ? (
                   <div className="relative w-full h-full">
                     <Image src={form.posterPreview} alt="Course Poster" fill={true} className="w-full h-full object-cover" />
-                    </div>
+                  </div>
                 ) : (
                   <ImageIcon className="w-8 h-8 text-gray-400" />
                 )}
@@ -332,92 +336,6 @@ export default function CreateCoursePage() {
               placeholder="Describe the course, its objectives, and what students will learn..."
               required
             />
-          </div>
-
-          {/* Chapters Section */}
-          <div>
-            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2"><Video className="w-5 h-5 text-blue-600" /> Chapters</h3>
-            <div className="space-y-4">
-              {form.chapters.length === 0 && <div className="text-gray-500">No chapters added yet.</div>}
-              {form.chapters.map((chapter, idx) => (
-                <div key={idx} className="flex items-center gap-4 p-3 bg-gray-100 rounded-lg">
-                  <div className="flex-1">
-                    <div className="font-medium">{chapter.title}</div>
-                    {chapter.videoPreview && (
-                      <video src={chapter.videoPreview} controls className="w-40 h-20 mt-1 rounded" />
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleEditChapter(idx)}
-                    className="p-2 rounded hover:bg-yellow-100"
-                  >
-                    <Edit className="w-4 h-4 text-yellow-600" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteChapter(idx)}
-                    className="p-2 rounded hover:bg-red-100"
-                  >
-                    <Trash2 className="w-4 h-4 text-red-600" />
-                  </button>
-                </div>
-              ))}
-            </div>
-            {/* Add/Edit Chapter Form */}
-            <div className="mt-6 p-4 bg-white border border-gray-200 rounded-lg">
-              <div className="flex flex-col md:flex-row md:items-end gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Chapter Title *</label>
-                  <input
-                    type="text"
-                    value={chapterForm.title}
-                    onChange={(e) => setChapterForm((prev) => ({ ...prev, title: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                    placeholder="Enter chapter title"
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Video *</label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      id="chapter-video-upload"
-                      type="file"
-                      accept="video/*"
-                      onChange={handleChapterVideoChange}
-                      className="hidden"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => document.getElementById("chapter-video-upload")?.click()}
-                      className="px-3 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded hover:bg-blue-700 flex items-center gap-1"
-                    >
-                      <Upload className="w-4 h-4" /> Upload
-                    </button>
-                    {chapterForm.videoPreview && (
-                      <>
-                        <video src={chapterForm.videoPreview} controls className="w-24 h-12 rounded" />
-                        <button
-                          type="button"
-                          onClick={removeChapterVideo}
-                          className="p-1 rounded bg-red-500 text-white hover:bg-red-600"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleAddOrEditChapter}
-                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 flex items-center gap-1"
-                  disabled={!chapterForm.title || !chapterForm.video}
-                >
-                  <Plus className="w-4 h-4" /> {editingChapterIndex !== null ? "Update Chapter" : "Add Chapter"}
-                </button>
-              </div>
-            </div>
           </div>
         </div>
         {/* Actions */}

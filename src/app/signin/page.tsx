@@ -2,21 +2,51 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { GraduationCap, Lock, Mail } from "lucide-react";
-import { useState } from "react";
+import { useGetUserQuery, useLoginMutation } from '@/store/api/authApi';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function SignInPage() {
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const { data: user, isLoading } = useGetUserQuery();
+  console.log("user",user)
+  const [login, { isLoading: isLoggingIn, error }] = useLoginMutation();
+  const router = useRouter();
+  const [form, setForm] = useState({ email: '', password: '' });
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      if (user.role === 'ADMIN') router.replace('/admin/dashboard');
+      else if (user.role === 'INSTRUCTOR') router.replace('/instructor/dashboard');
+      else if (user.role === 'STUDENT') router.replace('/learner/dashboard');
+    }
+  }, [user, isLoading, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 2000);
+    try {
+      await login(form).unwrap();
+      // user will be refetched automatically
+    } catch {
+      // error handled below
+    }
   };
+
+  // Helper to render error message
+  function getErrorMessage(error: unknown): string | null {
+    if (!error) return null;
+    if (typeof error === 'string') return error;
+    if ('status' in (error as {status:number}) && 'data' in (error as {data:unknown})) {
+      const errorData = (error as {data:unknown}).data as {message:string};
+      if (errorData && typeof errorData.message === 'string') {
+        return errorData.message;
+    }
+  }
+    return 'An unexpected error occurred. Please try again.';
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-white flex flex-col">
@@ -46,6 +76,9 @@ export default function SignInPage() {
         >
           <h1 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-700 via-purple-600 to-blue-500 bg-clip-text text-transparent">Sign In to Live Learn</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            {typeof getErrorMessage(error) === 'string' && getErrorMessage(error) && (
+              <div className="text-red-500 text-center mb-2">{getErrorMessage(error)}</div>
+            )}
             <div>
               <label className="block text-sm font-medium text-blue-900 mb-2">Email</label>
               <div className="relative">
@@ -82,7 +115,7 @@ export default function SignInPage() {
               type="submit"
               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-lg font-semibold shadow hover:scale-105 transition-transform"
             >
-              {submitted ? "Signing In..." : "Sign In"}
+              {isLoggingIn ? "Signing In..." : "Sign In"}
             </motion.button>
           </form>
           <div className="mt-6 text-center text-gray-600">
