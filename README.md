@@ -4,7 +4,7 @@
 
 ---
 
-### 🧪 Demo Login Credentials
+### Login Credentials
 
 | Field    | Value                    |
 |----------|--------------------------|
