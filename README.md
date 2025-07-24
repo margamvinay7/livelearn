@@ -4,6 +4,23 @@
 
 ---
 
+### 🧪 Demo Login Credentials
+
+| Field    | Value                    |
+|----------|--------------------------|
+| Email    | `vinay@livelearn.com`    |
+| Password | `123456`                 |
+
+### For copy
+Email :
+```
+vinay@livelearn.com
+```
+Password: 
+```
+123456
+```
+
 ## Features
 
 ### ✅ Implemented Features
