@@ -34,45 +34,49 @@ This LMS is designed for production-grade scalability and modern media delivery:
 
 ### System Architecture Diagram
 
+## 📊 LMS System Architecture
+
 ```mermaid
 flowchart TD
   subgraph Frontend
-    FE[User Browser (lmsui)]
+    FE[User Browser LMS UI]
   end
 
   subgraph AWS
-    S3[(Amazon S3)]
-    CDN[(CDN/CloudFront)]
+    S3[S3 Storage]
+    CDN[CloudFront CDN]
   end
 
   subgraph Backend
-    API[Main Server (API)]
-    Worker[Worker(s) (Transcoding)]
-    RedisQ[(Redis Queue)]
-    RedisPS[(Redis Pub/Sub)]
-    DB[(PostgreSQL)]
+    API[Main Server API]
+    Worker[Video Worker]
+    RedisQ[Redis Queue]
+    RedisPS[Redis PubSub]
+    DB[PostgreSQL Database]
   end
 
-  FE -- "1. Get S3 Upload URL" --> API
-  API -- "2. Return Pre-signed S3 URL" --> FE
-  FE -- "3. Upload Video" --> S3
-  FE -- "4. Notify Upload Complete" --> API
-  API -- "5. Enqueue Video Job" --> RedisQ
-  Worker -- "6. Fetch Job" --> RedisQ
-  Worker -- "7. Download Raw Video" --> S3
-  Worker -- "8. Transcode to HLS" --> Worker
-  Worker -- "9. Upload HLS to S3" --> S3
-  Worker -- "10. Update Status" --> DB
-  FE -- "11. Stream HLS" --> CDN
-  CDN -- "12. Fetch Segments" --> S3
+  FE -->|1. Request Upload URL| API
+  API -->|2. Return Pre signed URL| FE
+  FE -->|3. Upload Video| S3
+  FE -->|4. Notify Upload Complete| API
+  API -->|5. Enqueue Job| RedisQ
+  Worker -->|6. Fetch Job| RedisQ
+  Worker -->|7. Download Raw Video| S3
+  Worker -->|8. Transcode to HLS| Worker
+  Worker -->|9. Upload HLS Output| S3
+  Worker -->|10. Update Video Status| DB
 
-  API -- "User/Content/Chat API" --> DB
-  API -- "Chat/Notification Events" --> RedisPS
-  FE -- "Real-time Chat (future)" --> API
-  API -- "Pub/Sub" --> RedisPS
+  FE -->|11. Stream Video| CDN
+  CDN -->|12. Fetch HLS Segments| S3
+
+  FE -->|User Auth Course Access| API
+  API -->|Read Write Data| DB
+  FE -->|Chat Notifications| API
+  API -->|Emit Events| RedisPS
 ```
 
----
+
+
 
 ### Key Notes & Vision
 - **Active Development:** Core LMS, video upload, and streaming are live. Chat, group chat, and real-time features are in progress.
